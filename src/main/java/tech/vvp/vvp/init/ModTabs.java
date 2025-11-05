@@ -41,6 +41,11 @@ public class ModTabs {
                 output.accept(ContainerBlockItem.createInstance(ModEntities.M1A2.get()));
                 output.accept(ContainerBlockItem.createInstance(ModEntities.BTR_4.get()));
 
+                // CIVILIAN
+                output.accept(ContainerBlockItem.createInstance(ModEntities.BIKEGREEN.get()));
+                output.accept(ContainerBlockItem.createInstance(ModEntities.BIKERED.get()));
+                output.accept(ContainerBlockItem.createInstance(ModEntities.VAZIK.get()));
+
                 // AIRCRAFT
                 output.accept(ContainerBlockItem.createInstance(ModEntities.UH60.get()));
                 output.accept(ContainerBlockItem.createInstance(ModEntities.UH60MOD.get()));

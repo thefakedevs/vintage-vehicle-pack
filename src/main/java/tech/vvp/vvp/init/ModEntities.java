@@ -223,6 +223,33 @@ public class ModEntities {
                     .sized(4f, 4f)
                     .build("puma"));
 
+    public static final RegistryObject<EntityType<BikegreenEntity>> BIKEGREEN = ENTITY_TYPES.register("bikegreen",
+            () -> EntityType.Builder.<BikegreenEntity>of(BikegreenEntity::new, MobCategory.MISC)
+                    .setTrackingRange(64)
+                    .setUpdateInterval(1)
+                    .setCustomClientFactory(BikegreenEntity::clientSpawn)
+                    .fireImmune()
+                    .sized(1.2f, 1.5f)
+                    .build("bikegreen"));
+
+    public static final RegistryObject<EntityType<BikeredEntity>> BIKERED = ENTITY_TYPES.register("bikered",
+            () -> EntityType.Builder.<BikeredEntity>of(BikeredEntity::new, MobCategory.MISC)
+                    .setTrackingRange(64)
+                    .setUpdateInterval(1)
+                    .setCustomClientFactory(BikeredEntity::clientSpawn)
+                    .fireImmune()
+                    .sized(1.2f, 1.5f)
+                    .build("bikered"));
+
+    public static final RegistryObject<EntityType<VazikEntity>> VAZIK = ENTITY_TYPES.register("vazik",
+            () -> EntityType.Builder.<VazikEntity>of(VazikEntity::new, MobCategory.MISC)
+                    .setTrackingRange(64)
+                    .setUpdateInterval(1)
+                    .setCustomClientFactory(VazikEntity::clientSpawn)
+                    .fireImmune()
+                    .sized(2.5f, 2.0f)
+                    .build("vazik"));
+
 
 
 

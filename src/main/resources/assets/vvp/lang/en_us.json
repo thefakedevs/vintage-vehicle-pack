@@ -37,6 +37,11 @@
   "entity.vvp.m997_green": "Humvee M997",
   "entity.vvp.fmtv": "FMTV",
 
+  "//": "==================== CIVILIAN VEHICLES ====================",
+  "entity.vvp.bikegreen": "Motorcycle (Green)",
+  "entity.vvp.bikered": "Motorcycle (Red)",
+  "entity.vvp.vazik": "VAZ-2106 (Zhiguli)",
+
   "//": "==================== EQUIPMENT & ITEMS ====================",
   "item.vvp.multicamhelmet": "ACH Helmet USA",
   "item.vvp.multicamchest": "Body Armor USA",

@@ -43,11 +43,9 @@ public class ModEntityRenderers {
         event.registerEntityRenderer(ModEntities.PUMA.get(), PumaRenderer::new);
         event.registerEntityRenderer(ModEntities.SPIKE_MISSLE.get(), SpikeATGMRenderer::new);
         event.registerEntityRenderer(ModEntities.TOW_MISSILE.get(), TOWRenderer::new);
-
-
-
-
-
+        event.registerEntityRenderer(ModEntities.BIKEGREEN.get(), BikegreenRenderer::new);
+        event.registerEntityRenderer(ModEntities.BIKERED.get(), BikeredRenderer::new);
+        event.registerEntityRenderer(ModEntities.VAZIK.get(), VazikRenderer::new);
     }
 
     /**

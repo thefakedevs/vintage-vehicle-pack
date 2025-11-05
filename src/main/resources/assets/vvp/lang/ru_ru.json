@@ -37,6 +37,11 @@
   "entity.vvp.m997_green": "Humvee M997",
   "entity.vvp.fmtv": "FMTV",
 
+  "//": "==================== ГРАЖДАНСКАЯ ТЕХНИКА ====================",
+  "entity.vvp.bikegreen": "Мотоцикл (Зеленый)",
+  "entity.vvp.bikered": "Мотоцикл (Красный)",
+  "entity.vvp.vazik": "ВАЗ-2106 (Жигули)",
+
   "//": "==================== ЭКИПИРОВКА И ПРЕДМЕТЫ ====================",
   "item.vvp.multicamhelmet": "ACH Боевой Шлем США",
   "item.vvp.multicamchest": "Бронижелет США",
