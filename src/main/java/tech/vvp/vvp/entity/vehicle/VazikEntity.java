@@ -159,22 +159,22 @@ public class VazikEntity extends ContainerMobileVehicleEntity implements GeoEnti
 
     @Override
     public DamageModifier getDamageModifier() {
+        // Жигули - гражданский автомобиль, получает больше урона чем танки, но меньше чем мотоцикл
         return super.getDamageModifier()
-                .multiply(0.2f)
-                .multiply(1.5f, DamageTypes.ARROW)
-                .multiply(1.5f, DamageTypes.TRIDENT)
-                .multiply(2.5f, DamageTypes.MOB_ATTACK)
-                .multiply(2f, DamageTypes.MOB_ATTACK_NO_AGGRO)
-                .multiply(1.5f, DamageTypes.MOB_PROJECTILE)
-                .multiply(12.5f, DamageTypes.LAVA)
-                .multiply(6f, DamageTypes.EXPLOSION)
-                .multiply(6f, DamageTypes.PLAYER_EXPLOSION)
-                .multiply(2.4f, ModDamageTypes.CUSTOM_EXPLOSION)
-                .multiply(0.75f, ModDamageTypes.MINE)
-                .multiply(0.25f, ModTags.DamageTypes.PROJECTILE)
-                .multiply(0.85f, ModTags.DamageTypes.PROJECTILE_ABSOLUTE)
-                .multiply(10f, ModDamageTypes.VEHICLE_STRIKE)
-                .reduce(7);
+                .multiply(2f)  // Базовый урон увеличен в 2 раза
+                .multiply(2.5f, DamageTypes.ARROW)
+                .multiply(2.5f, DamageTypes.TRIDENT)
+                .multiply(3.5f, DamageTypes.MOB_ATTACK)
+                .multiply(2.5f, DamageTypes.MOB_ATTACK_NO_AGGRO)
+                .multiply(2.5f, DamageTypes.MOB_PROJECTILE)
+                .multiply(12f, DamageTypes.LAVA)
+                .multiply(7f, DamageTypes.EXPLOSION)
+                .multiply(7f, DamageTypes.PLAYER_EXPLOSION)
+                .multiply(4f, ModDamageTypes.CUSTOM_EXPLOSION)
+                .multiply(3f, ModDamageTypes.MINE)
+                .multiply(1.5f, ModTags.DamageTypes.PROJECTILE)
+                .multiply(1.5f, ModTags.DamageTypes.PROJECTILE_ABSOLUTE)
+                .multiply(12f, ModDamageTypes.VEHICLE_STRIKE);
     }
 
     @Override

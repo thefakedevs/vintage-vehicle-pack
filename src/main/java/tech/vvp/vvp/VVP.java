@@ -28,7 +28,7 @@ import tech.vvp.vvp.network.message.C2SRadarTogglePacket;
 @Mod(VVP.MOD_ID)
 public class VVP {
     public static final String MOD_ID = "vvp";
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public VVP() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();

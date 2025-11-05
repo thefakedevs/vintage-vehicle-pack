@@ -151,22 +151,22 @@ public class BikegreenEntity extends ContainerMobileVehicleEntity implements Geo
 
     @Override
     public DamageModifier getDamageModifier() {
+        // Мотоцикл - легкий транспорт, получает больше урона чем танки
         return super.getDamageModifier()
-                .multiply(0.2f)
-                .multiply(1.5f, DamageTypes.ARROW)
-                .multiply(1.5f, DamageTypes.TRIDENT)
-                .multiply(2.5f, DamageTypes.MOB_ATTACK)
-                .multiply(2f, DamageTypes.MOB_ATTACK_NO_AGGRO)
-                .multiply(1.5f, DamageTypes.MOB_PROJECTILE)
-                .multiply(12.5f, DamageTypes.LAVA)
-                .multiply(6f, DamageTypes.EXPLOSION)
-                .multiply(6f, DamageTypes.PLAYER_EXPLOSION)
-                .multiply(2.4f, ModDamageTypes.CUSTOM_EXPLOSION)
-                .multiply(0.75f, ModDamageTypes.MINE)
-                .multiply(0.25f, ModTags.DamageTypes.PROJECTILE)
-                .multiply(0.85f, ModTags.DamageTypes.PROJECTILE_ABSOLUTE)
-                .multiply(10f, ModDamageTypes.VEHICLE_STRIKE)
-                .reduce(7);
+                .multiply(2.5f)  // Базовый урон увеличен в 2.5 раза
+                .multiply(3f, DamageTypes.ARROW)
+                .multiply(3f, DamageTypes.TRIDENT)
+                .multiply(4f, DamageTypes.MOB_ATTACK)
+                .multiply(3f, DamageTypes.MOB_ATTACK_NO_AGGRO)
+                .multiply(3f, DamageTypes.MOB_PROJECTILE)
+                .multiply(15f, DamageTypes.LAVA)
+                .multiply(8f, DamageTypes.EXPLOSION)
+                .multiply(8f, DamageTypes.PLAYER_EXPLOSION)
+                .multiply(5f, ModDamageTypes.CUSTOM_EXPLOSION)
+                .multiply(4f, ModDamageTypes.MINE)
+                .multiply(2f, ModTags.DamageTypes.PROJECTILE)
+                .multiply(2f, ModTags.DamageTypes.PROJECTILE_ABSOLUTE)
+                .multiply(15f, ModDamageTypes.VEHICLE_STRIKE);
     }
 
     @Override
