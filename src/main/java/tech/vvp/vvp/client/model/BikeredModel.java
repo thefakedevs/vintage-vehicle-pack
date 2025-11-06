@@ -18,7 +18,6 @@ public class BikeredModel extends GeoModel<BikeredEntity> {
 
     @Override
     public ResourceLocation getAnimationResource(BikeredEntity animatable) {
-        // Возвращаем null если анимации нет
-        return null;
+        return VVP.loc("animations/bike.animation.json");
     }
 }

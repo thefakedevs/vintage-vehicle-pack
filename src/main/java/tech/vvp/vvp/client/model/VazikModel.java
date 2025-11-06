@@ -18,6 +18,6 @@ public class VazikModel extends GeoModel<VazikEntity> {
 
     @Override
     public ResourceLocation getAnimationResource(VazikEntity animatable) {
-        return VVP.loc("animations/lav.animation.json");
+        return VVP.loc("animations/vaz.animation.json");
     }
 }

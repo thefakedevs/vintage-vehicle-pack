@@ -109,7 +109,16 @@ public class BikegreenEntity extends ContainerMobileVehicleEntity implements Geo
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar data) {
-        // Не регистрируем контроллеры анимации, так как анимации нет
+        data.add(new AnimationController<>(this, "wheel_controller", 0, this::wheelPredicate));
+    }
+
+    private PlayState wheelPredicate(AnimationState<BikegreenEntity> event) {
+        if (Mth.abs((float)this.getDeltaMovement().horizontalDistanceSqr()) > 0.001 || Mth.abs(this.entityData.get(POWER)) > 0.05) {
+            float power = this.entityData.get(POWER);
+            event.getController().setAnimationSpeed(power < 0 ? -1.0 : 1.0);
+            return event.setAndContinue(RawAnimation.begin().thenLoop("animation.bike.new"));
+        }
+        return PlayState.STOP;
     }
 
     @Override
@@ -320,12 +329,7 @@ public class BikegreenEntity extends ContainerMobileVehicleEntity implements Geo
         // Ничего не делаем здесь, чтобы предотвратить вращение турели при повороте головы пассажира
     }
 
-    private PlayState idlePredicate(AnimationState<BikegreenEntity> event) {
-        if (Mth.abs((float)this.getDeltaMovement().horizontalDistanceSqr()) > 0.001 || Mth.abs(this.entityData.get(POWER)) > 0.05) {
-            return event.setAndContinue(RawAnimation.begin().thenLoop("animation.lav.idle"));
-        }
-        return event.setAndContinue(RawAnimation.begin().thenLoop("animation.lav.idle"));
-    }
+
 
     // Реализация методов ArmedVehicleEntity - заглушки, так как оружия у нас больше нет
 

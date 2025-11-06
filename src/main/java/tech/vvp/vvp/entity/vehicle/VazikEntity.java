@@ -117,7 +117,19 @@ public class VazikEntity extends ContainerMobileVehicleEntity implements GeoEnti
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar data) {
-        // Не регистрируем контроллеры анимации, так как анимации нет
+        data.add(new AnimationController<>(this, "wheel_controller", 0, this::wheelPredicate));
+    }
+
+    private PlayState wheelPredicate(AnimationState<VazikEntity> event) {
+        // Проверяем, движется ли машина
+        if (Mth.abs((float)this.getDeltaMovement().horizontalDistanceSqr()) > 0.001 || Mth.abs(this.entityData.get(POWER)) > 0.05) {
+            // Определяем направление движения
+            float power = this.entityData.get(POWER);
+            // Устанавливаем скорость анимации в зависимости от направления
+            event.getController().setAnimationSpeed(power < 0 ? -1.0 : 1.0);
+            return event.setAndContinue(RawAnimation.begin().thenLoop("animation.vaz.new"));
+        }
+        return PlayState.STOP;
     }
 
     @Override
@@ -159,22 +171,15 @@ public class VazikEntity extends ContainerMobileVehicleEntity implements GeoEnti
 
     @Override
     public DamageModifier getDamageModifier() {
-        // Жигули - гражданский автомобиль, получает больше урона чем танки, но меньше чем мотоцикл
         return super.getDamageModifier()
-                .multiply(2f)  // Базовый урон увеличен в 2 раза
-                .multiply(2.5f, DamageTypes.ARROW)
-                .multiply(2.5f, DamageTypes.TRIDENT)
-                .multiply(3.5f, DamageTypes.MOB_ATTACK)
-                .multiply(2.5f, DamageTypes.MOB_ATTACK_NO_AGGRO)
-                .multiply(2.5f, DamageTypes.MOB_PROJECTILE)
-                .multiply(12f, DamageTypes.LAVA)
-                .multiply(7f, DamageTypes.EXPLOSION)
-                .multiply(7f, DamageTypes.PLAYER_EXPLOSION)
-                .multiply(4f, ModDamageTypes.CUSTOM_EXPLOSION)
-                .multiply(3f, ModDamageTypes.MINE)
-                .multiply(1.5f, ModTags.DamageTypes.PROJECTILE)
-                .multiply(1.5f, ModTags.DamageTypes.PROJECTILE_ABSOLUTE)
-                .multiply(12f, ModDamageTypes.VEHICLE_STRIKE);
+                .custom((source, damage) -> {
+                    var entity = source.getDirectEntity();
+                    if (entity != null && entity.getType().is(tech.vvp.vvp.init.ModTags.EntityTypes.AERIAL_BOMB)) {
+                        damage *= 2;
+                    }
+                    damage *= getHealth() > 0.1f ? 0.7f : 0.05f;
+                    return damage;
+                });
     }
 
     @Override
@@ -333,13 +338,6 @@ public class VazikEntity extends ContainerMobileVehicleEntity implements GeoEnti
     @Override
     public void onPassengerTurned(Entity entity) {
         // Ничего не делаем здесь, чтобы предотвратить вращение турели при повороте головы пассажира
-    }
-
-    private PlayState idlePredicate(AnimationState<VazikEntity> event) {
-        if (Mth.abs((float)this.getDeltaMovement().horizontalDistanceSqr()) > 0.001 || Mth.abs(this.entityData.get(POWER)) > 0.05) {
-            return event.setAndContinue(RawAnimation.begin().thenLoop("animation.lav.idle"));
-        }
-        return event.setAndContinue(RawAnimation.begin().thenLoop("animation.lav.idle"));
     }
 
     // Реализация методов ArmedVehicleEntity - заглушки, так как оружия у нас больше нет
