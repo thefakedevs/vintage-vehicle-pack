@@ -75,16 +75,18 @@ public class VazikEntity extends ContainerMobileVehicleEntity implements GeoEnti
     public OBB obb4;
     public OBB obb5;
     public OBB obb6;
+    public OBB obb7;
 
     public VazikEntity(EntityType<? extends VazikEntity> type, Level world) {
         super(type, world);
         this.setMaxUpStep(1.5f);
-        this.obb = new OBB(this.position().toVector3f(), new Vector3f(1.210938f, 0.335938f, 0.8125f), new Quaternionf(), OBB.Part.BODY);
-        this.obb2 = new OBB(this.position().toVector3f(), new Vector3f(1.210938f, 0.335938f, 0.640625f), new Quaternionf(), OBB.Part.ENGINE1);
-        this.obb3 = new OBB(this.position().toVector3f(), new Vector3f(0.234375f, 0.304688f, 0.320312f), new Quaternionf(), OBB.Part.WHEEL_RIGHT);
-        this.obb4 = new OBB(this.position().toVector3f(), new Vector3f(0.234375f, 0.304688f, 0.320312f), new Quaternionf(), OBB.Part.WHEEL_LEFT);
-        this.obb5 = new OBB(this.position().toVector3f(), new Vector3f(0.234375f, 0.304688f, 0.320312f), new Quaternionf(), OBB.Part.WHEEL_RIGHT);
-        this.obb6 = new OBB(this.position().toVector3f(), new Vector3f(0.234375f, 0.304688f, 0.320312f), new Quaternionf(), OBB.Part.WHEEL_LEFT);
+        this.obb = new OBB(this.position().toVector3f(), new Vector3f(1.2f, 0.8f, 1.2f), new Quaternionf(), OBB.Part.BODY);
+        this.obb2 = new OBB(this.position().toVector3f(), new Vector3f(1.2f, 0.8f, 1.2f), new Quaternionf(), OBB.Part.ENGINE1);
+        this.obb7 = new OBB(this.position().toVector3f(), new Vector3f(1.2f, 0.8f, 1.5f), new Quaternionf(), OBB.Part.BODY);
+        this.obb3 = new OBB(this.position().toVector3f(), new Vector3f(0.3f, 0.4f, 0.4f), new Quaternionf(), OBB.Part.WHEEL_RIGHT);
+        this.obb4 = new OBB(this.position().toVector3f(), new Vector3f(0.3f, 0.4f, 0.4f), new Quaternionf(), OBB.Part.WHEEL_LEFT);
+        this.obb5 = new OBB(this.position().toVector3f(), new Vector3f(0.3f, 0.4f, 0.4f), new Quaternionf(), OBB.Part.WHEEL_RIGHT);
+        this.obb6 = new OBB(this.position().toVector3f(), new Vector3f(0.3f, 0.4f, 0.4f), new Quaternionf(), OBB.Part.WHEEL_LEFT);
     }
 
 
@@ -121,12 +123,11 @@ public class VazikEntity extends ContainerMobileVehicleEntity implements GeoEnti
     }
 
     private PlayState wheelPredicate(AnimationState<VazikEntity> event) {
-        // Проверяем, движется ли машина
         if (Mth.abs((float)this.getDeltaMovement().horizontalDistanceSqr()) > 0.001 || Mth.abs(this.entityData.get(POWER)) > 0.05) {
-            // Определяем направление движения
             float power = this.entityData.get(POWER);
-            // Устанавливаем скорость анимации в зависимости от направления
-            event.getController().setAnimationSpeed(power < 0 ? -1.0 : 1.0);
+            double speed = Math.abs(power) * 10.0;
+            if (speed < 0.1) speed = 1.0;
+            event.getController().setAnimationSpeed(speed);
             return event.setAndContinue(RawAnimation.begin().thenLoop("animation.vaz.new"));
         }
         return PlayState.STOP;
@@ -172,14 +173,20 @@ public class VazikEntity extends ContainerMobileVehicleEntity implements GeoEnti
     @Override
     public DamageModifier getDamageModifier() {
         return super.getDamageModifier()
-                .custom((source, damage) -> {
-                    var entity = source.getDirectEntity();
-                    if (entity != null && entity.getType().is(tech.vvp.vvp.init.ModTags.EntityTypes.AERIAL_BOMB)) {
-                        damage *= 2;
-                    }
-                    damage *= getHealth() > 0.1f ? 0.7f : 0.05f;
-                    return damage;
-                });
+                .multiply(1.5f)  // Базовый урон увеличен в 2.5 раза
+                .multiply(3f, DamageTypes.ARROW)
+                .multiply(3f, DamageTypes.TRIDENT)
+                .multiply(4f, DamageTypes.MOB_ATTACK)
+                .multiply(3f, DamageTypes.MOB_ATTACK_NO_AGGRO)
+                .multiply(3f, DamageTypes.MOB_PROJECTILE)
+                .multiply(15f, DamageTypes.LAVA)
+                .multiply(8f, DamageTypes.EXPLOSION)
+                .multiply(8f, DamageTypes.PLAYER_EXPLOSION)
+                .multiply(5f, ModDamageTypes.CUSTOM_EXPLOSION)
+                .multiply(4f, ModDamageTypes.MINE)
+                .multiply(2f, ModTags.DamageTypes.PROJECTILE)
+                .multiply(2f, ModTags.DamageTypes.PROJECTILE_ABSOLUTE)
+                .multiply(15f, ModDamageTypes.VEHICLE_STRIKE);
     }
 
     @Override
@@ -380,7 +387,7 @@ public class VazikEntity extends ContainerMobileVehicleEntity implements GeoEnti
 
     @Override
     public boolean hasDecoy() {
-        return true;
+        return false;
     }
 
     @Override
@@ -421,34 +428,32 @@ public class VazikEntity extends ContainerMobileVehicleEntity implements GeoEnti
     }
 
     public List<OBB> getOBBs() {
-        return List.of(this.obb, this.obb2, this.obb3, this.obb4, this.obb5, this.obb6);
+        return List.of(this.obb, this.obb2, this.obb3, this.obb4, this.obb5, this.obb6, this.obb7);
     }
 
     // @Override
     public void updateOBB() {
         Matrix4f transform = getVehicleTransform(1);
 
-        Vector4f worldPosition = transformPosition(transform, 0.055f, 1.273f, -2.921875f);
+        Vector4f worldPosition = transformPosition(transform, 0.0f, 1.0f, -1.5f);
         this.obb.center().set(new Vector3f(worldPosition.x, worldPosition.y, worldPosition.z));
         this.obb.setRotation(VectorTool.combineRotations(1, this));
-
-        Vector4f worldPosition2 = transformPosition(transform, 0.054688f, 1.273438f, 2.156f);
+        Vector4f worldPosition2 = transformPosition(transform, 0.0f, 1.0f, 1.5f);
         this.obb2.center().set(new Vector3f(worldPosition2.x, worldPosition2.y, worldPosition2.z));
         this.obb2.setRotation(VectorTool.combineRotations(1, this));
-
-        Vector4f worldPosition3 = transformPosition(transform, -0.953125f, 0.460938f, 1.945312f);
+        Vector4f worldPosition7 = transformPosition(transform, 0.0f, 1.0f, 0.0f);
+        this.obb7.center().set(new Vector3f(worldPosition7.x, worldPosition7.y, worldPosition7.z));
+        this.obb7.setRotation(VectorTool.combineRotations(1, this));
+        Vector4f worldPosition3 = transformPosition(transform, -0.9f, 0.5f, 1.5f);
         this.obb3.center().set(new Vector3f(worldPosition3.x, worldPosition3.y, worldPosition3.z));
         this.obb3.setRotation(VectorTool.combineRotations(1, this));
-
-        Vector4f worldPosition4 = transformPosition(transform, 0.984375f, 0.460938f, 1.945312f);
+        Vector4f worldPosition4 = transformPosition(transform, 0.9f, 0.5f, 1.5f);
         this.obb4.center().set(new Vector3f(worldPosition4.x, worldPosition4.y, worldPosition4.z));
         this.obb4.setRotation(VectorTool.combineRotations(1, this));
-
-        Vector4f worldPosition5 = transformPosition(transform, -0.953125f, 0.460938f, -1.929688f);
+        Vector4f worldPosition5 = transformPosition(transform, -0.9f, 0.5f, -1.5f);
         this.obb5.center().set(new Vector3f(worldPosition5.x, worldPosition5.y, worldPosition5.z));
         this.obb5.setRotation(VectorTool.combineRotations(1, this));
-
-        Vector4f worldPosition6 = transformPosition(transform, -0.953f, 0.461f, -1.945f);
+        Vector4f worldPosition6 = transformPosition(transform, 0.9f, 0.5f, -1.5f);
         this.obb6.center().set(new Vector3f(worldPosition6.x, worldPosition6.y, worldPosition6.z));
         this.obb6.setRotation(VectorTool.combineRotations(1, this));
     }

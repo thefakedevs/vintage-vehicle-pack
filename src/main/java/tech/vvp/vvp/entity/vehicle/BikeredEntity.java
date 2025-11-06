@@ -71,13 +71,15 @@ public class BikeredEntity extends ContainerMobileVehicleEntity implements GeoEn
     public OBB obb;
     public OBB obb1;
     public OBB obb2;
+    public OBB obb3;
 
     public BikeredEntity(EntityType<? extends BikeredEntity> type, Level world) {
         super(type, world);
         this.setMaxUpStep(1.5f);
-        this.obb = new OBB(this.position().toVector3f(), new Vector3f(0.15625f, 0.289f, 0.297f), new Quaternionf(), OBB.Part.WHEEL_RIGHT);
-        this.obb1 = new OBB(this.position().toVector3f(), new Vector3f(0.15625f, 0.289f, 0.297f), new Quaternionf(), OBB.Part.WHEEL_LEFT);
-        this.obb2 = new OBB(this.position().toVector3f(), new Vector3f(0.203f, 0.18f, 0.398f), new Quaternionf(), OBB.Part.BODY);
+        this.obb = new OBB(this.position().toVector3f(), new Vector3f(0.3f, 0.4f, 0.4f), new Quaternionf(), OBB.Part.WHEEL_RIGHT);
+        this.obb1 = new OBB(this.position().toVector3f(), new Vector3f(0.3f, 0.4f, 0.4f), new Quaternionf(), OBB.Part.WHEEL_LEFT);
+        this.obb2 = new OBB(this.position().toVector3f(), new Vector3f(0.5f, 0.6f, 0.8f), new Quaternionf(), OBB.Part.BODY);
+        this.obb3 = new OBB(this.position().toVector3f(), new Vector3f(0.4f, 0.5f, 1.2f), new Quaternionf(), OBB.Part.BODY);
     }
 
     // Добавляем статический метод для создания атрибутов
@@ -115,7 +117,9 @@ public class BikeredEntity extends ContainerMobileVehicleEntity implements GeoEn
     private PlayState wheelPredicate(AnimationState<BikeredEntity> event) {
         if (Mth.abs((float)this.getDeltaMovement().horizontalDistanceSqr()) > 0.001 || Mth.abs(this.entityData.get(POWER)) > 0.05) {
             float power = this.entityData.get(POWER);
-            event.getController().setAnimationSpeed(power < 0 ? -1.0 : 1.0);
+            double speed = Math.abs(power) * 10.0;
+            if (speed < 0.1) speed = 1.0;
+            event.getController().setAnimationSpeed(speed);
             return event.setAndContinue(RawAnimation.begin().thenLoop("animation.bike.new"));
         }
         return PlayState.STOP;
@@ -412,23 +416,24 @@ public class BikeredEntity extends ContainerMobileVehicleEntity implements GeoEn
     }
 
     public List<OBB> getOBBs() {
-        return List.of(this.obb, this.obb1, this.obb2);
+        return List.of(this.obb, this.obb1, this.obb2, this.obb3);
     }
 
     // @Override
     public void updateOBB() {
         Matrix4f transform = getVehicleTransform(1);
 
-        Vector4f worldPosition = transformPosition(transform, 0.0f, 0.383f, 0.859f);
+        Vector4f worldPosition = transformPosition(transform, 0.0f, 0.4f, 0.8f);
         this.obb.center().set(new Vector3f(worldPosition.x, worldPosition.y, worldPosition.z));
         this.obb.setRotation(VectorTool.combineRotations(1, this));
-
-        Vector4f worldPosition2 = transformPosition(transform, 0.0f, 0.383f, -0.859f);
+        Vector4f worldPosition2 = transformPosition(transform, 0.0f, 0.4f, -0.8f);
         this.obb1.center().set(new Vector3f(worldPosition2.x, worldPosition2.y, worldPosition2.z));
         this.obb1.setRotation(VectorTool.combineRotations(1, this));
-
-        Vector4f worldPosition3 = transformPosition(transform, 0.0f, 0.977f, -0.961f);
+        Vector4f worldPosition3 = transformPosition(transform, 0.0f, 0.6f, -0.3f);
         this.obb2.center().set(new Vector3f(worldPosition3.x, worldPosition3.y, worldPosition3.z));
         this.obb2.setRotation(VectorTool.combineRotations(1, this));
+        Vector4f worldPosition4 = transformPosition(transform, 0.0f, 0.6f, 0.0f);
+        this.obb3.center().set(new Vector3f(worldPosition4.x, worldPosition4.y, worldPosition4.z));
+        this.obb3.setRotation(VectorTool.combineRotations(1, this));
     }
 }

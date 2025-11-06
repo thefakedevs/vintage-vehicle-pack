@@ -436,14 +436,17 @@ public class M1A2Entity extends ContainerMobileVehicleEntity implements GeoEntit
             this.entityData.set(AMMO, 9999);
             this.entityData.set(MG_AMMO, 9999);
         } else {
-            this.entityData.set(AMMO, countItem(getWeapon(0).ammo));
-            this.entityData.set(MG_AMMO, countItem(getWeapon(1).ammo));
+            VehicleWeapon weapon0 = getWeapon(0);
+            VehicleWeapon weapon1 = getWeapon(1);
+            this.entityData.set(AMMO, weapon0 != null ? countItem(weapon0.ammo) : 0);
+            this.entityData.set(MG_AMMO, weapon1 != null ? countItem(weapon1.ammo) : 0);
         }
 
-        if (this.getEntityData().get(LOADED_SHELL).equals("null") && reloadCoolDown <= 0 && (hasCreativeAmmo || hasItem(getWeapon(0).ammo))) {
-            this.entityData.set(LOADED_SHELL, String.valueOf(ForgeRegistries.ITEMS.getKey(getWeapon(0).ammo)));
+        VehicleWeapon weapon0 = getWeapon(0);
+        if (weapon0 != null && this.getEntityData().get(LOADED_SHELL).equals("null") && reloadCoolDown <= 0 && (hasCreativeAmmo || hasItem(weapon0.ammo))) {
+            this.entityData.set(LOADED_SHELL, String.valueOf(ForgeRegistries.ITEMS.getKey(weapon0.ammo)));
             if (!hasCreativeAmmo) {
-                consumeItem(getWeapon(0).ammo, 1);
+                consumeItem(weapon0.ammo, 1);
             }
         }
     }
