@@ -6,14 +6,9 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.network.chat.Component;
-import net.minecraftforge.registries.RegistryObject;
-import net.minecraft.world.phys.Vec3;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.ServerLevelAccessor;
 
 import javax.annotation.Nullable;
@@ -35,10 +30,21 @@ public class VehicleSpawnItem extends Item {
             EntityType<?> entityType = this.entityTypeSupplier.get();
             Entity entity = entityType.create(serverLevel.getLevel());
             if (entity != null) {
+                // Устанавливаем позицию
                 entity.setPos(context.getClickLocation().x, context.getClickLocation().y, context.getClickLocation().z);
+                
+                // Устанавливаем поворот по направлению стороны блока
+                net.minecraft.core.Direction direction = context.getHorizontalDirection();
+                float yaw = direction.toYRot(); // Конвертируем направление в угол поворота
+                
+                entity.setYRot(yaw);
+                entity.setXRot(0); // Горизонтально
+                entity.yRotO = yaw;
+                entity.xRotO = 0;
+                
                 serverLevel.getLevel().addFreshEntity(entity);
                 
-                if (!context.getPlayer().getAbilities().instabuild) {
+                if (context.getPlayer() != null && !context.getPlayer().getAbilities().instabuild) {
                     context.getItemInHand().shrink(1);
                 }
                 return InteractionResult.SUCCESS;
@@ -51,9 +57,4 @@ public class VehicleSpawnItem extends Item {
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
         super.appendHoverText(stack, level, tooltip, flag);
     }
-
-    @Override
-    public Component getName(ItemStack stack) {
-        return super.getName(stack);
-    }
-} 
+}

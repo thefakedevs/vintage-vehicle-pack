@@ -4,7 +4,7 @@ import com.atsuishio.superbwarfare.init.ModItems;
 import net.minecraft.Util;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.LazyLoadedValue;
+import net.minecraftforge.common.util.Lazy;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -19,15 +19,39 @@ public enum ModArmorMaterial implements ArmorMaterial {
         p.put(ArmorItem.Type.CHESTPLATE, 8);
         p.put(ArmorItem.Type.HELMET, 3);
     }), 10, SoundEvents.ARMOR_EQUIP_IRON, 4.0F, 0.05F, () -> Ingredient.of(ModItems.CEMENTED_CARBIDE_INGOT.get())),
+    
     MULTICAM("multicam", 50, Util.make(new EnumMap<>(ArmorItem.Type.class), p -> {
         p.put(ArmorItem.Type.CHESTPLATE, 10);
         p.put(ArmorItem.Type.HELMET, 5);
     }), 10, SoundEvents.ARMOR_EQUIP_IRON, 5.0F, 0.1F, () -> Ingredient.of(ModItems.CEMENTED_CARBIDE_INGOT.get())),
+    
     MI28("mi28", 50, Util.make(new EnumMap<>(ArmorItem.Type.class), p -> {
         p.put(ArmorItem.Type.CHESTPLATE, 5);
         p.put(ArmorItem.Type.LEGGINGS, 2);
         p.put(ArmorItem.Type.HELMET, 3);
-    }), 10, SoundEvents.ARMOR_EQUIP_IRON, 1.0F, 0.0F, () -> Ingredient.of(ModItems.CEMENTED_CARBIDE_INGOT.get()));
+    }), 10, SoundEvents.ARMOR_EQUIP_IRON, 1.0F, 0.0F, () -> Ingredient.of(ModItems.CEMENTED_CARBIDE_INGOT.get())),
+    
+    KEPKI("kepki", 50, Util.make(new EnumMap<>(ArmorItem.Type.class), p -> {
+        p.put(ArmorItem.Type.HELMET, 1);
+    }), 10, SoundEvents.ARMOR_EQUIP_IRON, 0.0F, 0.0F, () -> Ingredient.of(ModItems.CEMENTED_CARBIDE_INGOT.get())),
+    
+    UKR("ukr", 50, Util.make(new EnumMap<>(ArmorItem.Type.class), p -> {
+        p.put(ArmorItem.Type.CHESTPLATE, 10);
+        p.put(ArmorItem.Type.LEGGINGS, 3);
+        p.put(ArmorItem.Type.HELMET, 6);
+    }), 10, SoundEvents.ARMOR_EQUIP_IRON, 1.5F, 0.2F, () -> Ingredient.of(ModItems.CEMENTED_CARBIDE_INGOT.get())),
+    
+    RUS("rus", 50, Util.make(new EnumMap<>(ArmorItem.Type.class), p -> {
+        p.put(ArmorItem.Type.CHESTPLATE, 10);
+        p.put(ArmorItem.Type.LEGGINGS, 3);
+        p.put(ArmorItem.Type.HELMET, 6);
+    }), 10, SoundEvents.ARMOR_EQUIP_IRON, 1.5F, 0.2F, () -> Ingredient.of(ModItems.CEMENTED_CARBIDE_INGOT.get())),
+    
+    PMC("pmc", 50, Util.make(new EnumMap<>(ArmorItem.Type.class), p -> {
+        p.put(ArmorItem.Type.CHESTPLATE, 10);
+        p.put(ArmorItem.Type.LEGGINGS, 3);
+        p.put(ArmorItem.Type.HELMET, 6);
+    }), 10, SoundEvents.ARMOR_EQUIP_IRON, 1.5F, 0.2F, () -> Ingredient.of(ModItems.CEMENTED_CARBIDE_INGOT.get()));
 
     private static final EnumMap<ArmorItem.Type, Integer> HEALTH_FUNCTION_FOR_TYPE = Util.make(new EnumMap<>(ArmorItem.Type.class), (p_266653_) -> {
         p_266653_.put(ArmorItem.Type.BOOTS, 13);
@@ -35,6 +59,7 @@ public enum ModArmorMaterial implements ArmorMaterial {
         p_266653_.put(ArmorItem.Type.CHESTPLATE, 16);
         p_266653_.put(ArmorItem.Type.HELMET, 11);
     });
+
     private final String name;
     private final int durabilityMultiplier;
     private final EnumMap<ArmorItem.Type, Integer> protectionFunctionForType;
@@ -42,7 +67,7 @@ public enum ModArmorMaterial implements ArmorMaterial {
     private final SoundEvent sound;
     private final float toughness;
     private final float knockbackResistance;
-    private final LazyLoadedValue<Ingredient> repairIngredient;
+    private final Lazy<Ingredient> repairIngredient;
 
     ModArmorMaterial(String pName, int pDurabilityMultiplier, EnumMap<ArmorItem.Type, Integer> pProtectionFunctionForType, int pEnchantmentValue, SoundEvent pSound, float pToughness, float pKnockbackResistance, Supplier<Ingredient> pRepairIngredient) {
         this.name = pName;
@@ -52,42 +77,48 @@ public enum ModArmorMaterial implements ArmorMaterial {
         this.sound = pSound;
         this.toughness = pToughness;
         this.knockbackResistance = pKnockbackResistance;
-        this.repairIngredient = new LazyLoadedValue<>(pRepairIngredient);
+        this.repairIngredient = Lazy.of(pRepairIngredient);
     }
 
+    @Override
     public int getDurabilityForType(ArmorItem.Type pType) {
-        return HEALTH_FUNCTION_FOR_TYPE.get(pType) * this.durabilityMultiplier;
+        // Добавлен getOrDefault для безопасности
+        return HEALTH_FUNCTION_FOR_TYPE.getOrDefault(pType, 0) * this.durabilityMultiplier;
     }
 
+    @Override
     public int getDefenseForType(ArmorItem.Type pType) {
-        return this.protectionFunctionForType.get(pType);
+        // ИСПРАВЛЕНИЕ: если типа брони нет в списке, возвращаем 0 вместо краша
+        return this.protectionFunctionForType.getOrDefault(pType, 0);
     }
 
+    @Override
     public int getEnchantmentValue() {
         return this.enchantmentValue;
     }
 
+    @Override
     public SoundEvent getEquipSound() {
         return this.sound;
     }
 
+    @Override
     public Ingredient getRepairIngredient() {
         return this.repairIngredient.get();
     }
 
+    @Override
     public String getName() {
         return this.name;
     }
 
+    @Override
     public float getToughness() {
         return this.toughness;
     }
 
+    @Override
     public float getKnockbackResistance() {
         return this.knockbackResistance;
-    }
-
-    public String getSerializedName() {
-        return this.name;
     }
 }

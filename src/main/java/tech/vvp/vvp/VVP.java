@@ -6,12 +6,8 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.network.NetworkDirection;
-import java.util.Optional;
 
 import org.slf4j.Logger;
-import tech.vvp.vvp.config.server.VehicleConfigVVP;
-import tech.vvp.vvp.config.server.ExplosionConfigVVP;
 import tech.vvp.vvp.init.*;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraft.world.item.BlockItem;
@@ -19,31 +15,21 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import tech.vvp.vvp.network.VVPNetwork;
-import tech.vvp.vvp.network.message.S2CRadarSyncPacket;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.config.ModConfig;
-import tech.vvp.vvp.network.message.C2SRadarTogglePacket;
 
 
 @Mod(VVP.MOD_ID)
 public class VVP {
     public static final String MOD_ID = "vvp";
-    public static final Logger LOGGER = LogUtils.getLogger();
+    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final net.minecraftforge.network.simple.SimpleChannel PACKET_HANDLER = VVPNetwork.VVP_HANDLER;
 
     public VVP() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ModItems.register(modEventBus);
         ModEntities.register(modEventBus);
-        ModVehicleItems.register(modEventBus);
         ModSounds.REGISTRY.register(modEventBus);
         ModTabs.TABS.register(modEventBus);
-
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, VehicleConfigVVP.SPEC, "vvp-vehicle.toml");
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ExplosionConfigVVP.SPEC, "vvp-explosion.toml");
-
-
-
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::setup);
@@ -55,36 +41,7 @@ public class VVP {
 
     private void setup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-            // Уже зарегистрированные пакеты...
-
-            // C2S: переключение радара
-            VVPNetwork.addNetworkMessage(
-                    tech.vvp.vvp.network.message.C2SRadarTogglePacket.class,
-                    tech.vvp.vvp.network.message.C2SRadarTogglePacket::encode,
-                    tech.vvp.vvp.network.message.C2SRadarTogglePacket::decode,
-                    tech.vvp.vvp.network.message.C2SRadarTogglePacket::handle,
-                    java.util.Optional.of(net.minecraftforge.network.NetworkDirection.PLAY_TO_SERVER)
-            );
-
-            // S2C: синхронизация списка целей
-            VVPNetwork.addNetworkMessage(
-                    tech.vvp.vvp.network.message.S2CRadarSyncPacket.class,
-                    tech.vvp.vvp.network.message.S2CRadarSyncPacket::buffer,
-                    tech.vvp.vvp.network.message.S2CRadarSyncPacket::new,
-                    tech.vvp.vvp.network.message.S2CRadarSyncPacket::handler,
-                    java.util.Optional.of(net.minecraftforge.network.NetworkDirection.PLAY_TO_CLIENT)
-            );
-
-            // NEW: S2C: синхронизация состояния радара (для HUD)
-            VVPNetwork.addNetworkMessage(
-                    tech.vvp.vvp.network.message.S2CRadarStatePacket.class,
-                    tech.vvp.vvp.network.message.S2CRadarStatePacket::buffer,
-                    tech.vvp.vvp.network.message.S2CRadarStatePacket::new,
-                    tech.vvp.vvp.network.message.S2CRadarStatePacket::handler,
-                    java.util.Optional.of(net.minecraftforge.network.NetworkDirection.PLAY_TO_CLIENT)
-            );
-
-
+            VVPNetwork.register();
         });
     }
 

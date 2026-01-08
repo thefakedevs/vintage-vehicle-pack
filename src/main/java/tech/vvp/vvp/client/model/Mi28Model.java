@@ -1,49 +1,27 @@
 package tech.vvp.vvp.client.model;
 
-
-import tech.vvp.vvp.VVP;
+import com.atsuishio.superbwarfare.client.model.entity.VehicleModel;
+import net.minecraft.util.Mth;
+import org.jetbrains.annotations.Nullable;
 import tech.vvp.vvp.entity.vehicle.Mi28Entity;
-import net.minecraft.client.Minecraft;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Player;
-import software.bernie.geckolib.model.GeoModel;
 
-public class Mi28Model extends GeoModel<Mi28Entity> {
+public class Mi28Model extends VehicleModel<Mi28Entity> {
 
     @Override
-    public ResourceLocation getAnimationResource(Mi28Entity entity) {
-        return null;
-//        return ModUtils.loc("animations/wheel_chair.animation.json");
+    public boolean hideForTurretControllerWhileZooming() {
+        return true;
     }
 
     @Override
-    public ResourceLocation getModelResource(Mi28Entity entity) {
-        Player player = Minecraft.getInstance().player;
-
-        int distance = 0;
-
-        if (player != null) {
-            distance = (int) player.position().distanceTo(entity.position());
-        }
-
-        if (distance < 32) {
-            return VVP.loc("geo/mi28.geo.json");
-        } else if (distance < 64) {
-            return VVP.loc("geo/mi28.geo.json");
-        } else if (distance < 96) {
-            return VVP.loc("geo/mi28.geo.json");
-        } else {
-            return VVP.loc("geo/mi28.geo.json");
-        }
-    }
-
-    @Override
-    public ResourceLocation getTextureResource(Mi28Entity animatable) {
-        int camoType = animatable.getEntityData().get(Mi28Entity.CAMOUFLAGE_TYPE);
-        switch (camoType) {
-            case 1: return new ResourceLocation("vvp", "textures/entity/mi28_camo.png");
-            case 2: return new ResourceLocation("vvp", "textures/entity/mi28_iraq.png");
-            default: return new ResourceLocation("vvp", "textures/entity/mi28_black.png");
-        }
+    public @Nullable TransformContext<Mi28Entity> collectTransform(String boneName) {
+        return switch (boneName) {
+            case "propeller" ->
+                    (bone, vehicle, state) -> bone.setRotY(-Mth.lerp(state.getPartialTick(), vehicle.getPropellerRotO(), vehicle.getPropellerRot()));
+            case "tailPropeller" ->
+                    (bone, vehicle, state) -> bone.setRotX(6 * Mth.lerp(state.getPartialTick(), vehicle.getPropellerRotO(), vehicle.getPropellerRot()));
+            case "tailPropeller2" ->
+                    (bone, vehicle, state) -> bone.setRotX(6 * Mth.lerp(state.getPartialTick(), vehicle.getPropellerRotO(), vehicle.getPropellerRot()));
+            default -> super.collectTransform(boneName);
+        };
     }
 }

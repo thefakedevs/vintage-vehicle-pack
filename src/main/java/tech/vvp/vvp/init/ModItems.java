@@ -1,25 +1,22 @@
 package tech.vvp.vvp.init;
 
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.RecordItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.eventbus.api.IEventBus;
 import tech.vvp.vvp.VVP;
 import tech.vvp.vvp.item.armor.*;
-import tech.vvp.vvp.item.varies.*;
 
 
 public class ModItems {
     public static final DeferredRegister<Item> REGISTRY = 
             DeferredRegister.create(ForgeRegistries.ITEMS, VVP.MOD_ID);
 
-    public static final RegistryObject<Item> ICON_SPAWN_ITEM = REGISTRY.register("icon_spawn_item",
+    public static final RegistryObject<Item> NATO_TAB_ICON = REGISTRY.register("nato_tab_icon",
             () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> ICON_CIVILIAN = REGISTRY.register("icon_civilian",
+    public static final RegistryObject<Item> RU_TAB_ICON = REGISTRY.register("ru_tab_icon",
             () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> ARMOR_ICON = REGISTRY.register("armor_icon",
@@ -38,30 +35,83 @@ public class ModItems {
             () -> new mi28chest());
 
 
-    public static final RegistryObject<Item> MANGAL_BODY = REGISTRY.register("mangal_body", MangalBodyItem::new);
-    public static final RegistryObject<Item> MANGAL_TURRET = REGISTRY.register("mangal_turret", MangalTurretItem::new);
-    public static final RegistryObject<Item> SETKA_BODY = REGISTRY.register("setka_body", SetkaBodyItem::new);
-    public static final RegistryObject<Item> SETKA_TURRET = REGISTRY.register("setka_turret", SetkaTurretItem::new);
-    public static final RegistryObject<Item> WRENCH = REGISTRY.register("wrench", WrenchItem::new);
-    public static final RegistryObject<Item> KOROBKI = REGISTRY.register("korobki", KorobkiItem::new);
-    public static final RegistryObject<Item> SPRAY = REGISTRY.register("spray", SprayItem::new);
-    public static final RegistryObject<Item> TENT = REGISTRY.register("tent", TentItem::new);
-    public static final RegistryObject<Item> FAB_500_ITEM = REGISTRY.register("fab_500_item", Fab500Item::new);
-    public static final RegistryObject<Item> S_13 = REGISTRY.register("s_13", S13Item::new);
+    public static final RegistryObject<Item> GMLRS_M31 = REGISTRY.register("gmlrs_m31", 
+            () -> new Item(new Item.Properties().stacksTo(6)));
 
-    public static final RegistryObject<Item> LMUR_ITEM = REGISTRY.register("lmur_item", LmurItem::new);
-    public static final RegistryObject<Item> X25_ITEM = REGISTRY.register("x25_item", X25Item::new);
-    public static final RegistryObject<Item> HFIRE_ITEM = REGISTRY.register("hfire_item", HFireItem::new);
-
-    public static final RegistryObject<Item> CACTUS_TURRET_ITEM = REGISTRY.register("cactus_turret", CactusTurretItem::new);
-    public static final RegistryObject<Item> BMP3M_BODY = REGISTRY.register("bmp3m_body", Bmp3MBodyItem::new);
+    public static final RegistryObject<Item> AGS_30_ITEM = REGISTRY.register("ags_30_item",
+            () -> new tech.vvp.vvp.item.VehicleSpawnItem(ModEntities.AGS_30::get, new Item.Properties().stacksTo(64)));
+    
+    public static final RegistryObject<Item> KORNET_ITEM = REGISTRY.register("kornet_item",
+            () -> new tech.vvp.vvp.item.VehicleSpawnItem(ModEntities.KORNET::get, new Item.Properties().stacksTo(64)));
 
 
+    public static final RegistryObject<Item> CREW_HELMET = REGISTRY.register("crewhelmet",
+            () -> new crewhelmet());
+    public static final RegistryObject<Item> PANAMA = REGISTRY.register("panama",
+            () -> new panama());
+    public static final RegistryObject<Item> KEPKA = REGISTRY.register("kepka",
+            () -> new kepka());
+    public static final RegistryObject<Item> BERETA = REGISTRY.register("bereta",
+            () -> new bereta());
 
-    public static final RegistryObject<Item> RADIOHEAD = REGISTRY.register("music_disc_radiohead",
-                        () -> new RecordItem(15, ModSounds.RADIOHEAD, // 15 = comparator signal strength
-                                new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 4800)); // 4800 = длительность в тиках
+    public static final RegistryObject<Item> SPRAY = REGISTRY.register("spray",
+            () -> new tech.vvp.vvp.item.varies.SprayItem());
 
+    public static final RegistryObject<Item> ITEM_40_MM = REGISTRY.register("item_40_mm",
+            () -> new Item(new Item.Properties().stacksTo(2)));
+
+    // RUS ARMOR
+    public static final RegistryObject<Item> RUS_ARMOR = REGISTRY.register("rus_armor",
+            () -> new rus_armor());
+    public static final RegistryObject<Item> RUS_ARMOR_2 = REGISTRY.register("rus_armor_2",
+            () -> new rus_armor_2());
+    public static final RegistryObject<Item> RUS_ARMOR_3 = REGISTRY.register("rus_armor_3",
+            () -> new rus_armor_3());
+    public static final RegistryObject<Item> RUS_HELMET = REGISTRY.register("rus_helmet",
+            () -> new rus_helmet());
+    public static final RegistryObject<Item> RUS_HELMET_2 = REGISTRY.register("rus_helmet_2",
+            () -> new rus_helmet_2());
+    public static final RegistryObject<Item> RUS_HELMET_3 = REGISTRY.register("rus_helmet_3",
+            () -> new rus_helmet_3());
+
+    // UKR_ARMOR
+
+    public static final RegistryObject<Item> UKR_CHEST = REGISTRY.register("ukr_chest",
+            () -> new ukr_chest());
+    public static final RegistryObject<Item> UKR_HELMET = REGISTRY.register("ukr_helmet",
+            () -> new ukr_helmet());
+    public static final RegistryObject<Item> UKR_V2_CHEST = REGISTRY.register("ukr_v2_chest",
+            () -> new ukr_v2_chest());
+    public static final RegistryObject<Item> UKR_V2_HELMET = REGISTRY.register("ukr_v2_helmet",
+            () -> new ukr_v2_helmet());
+
+    // PMC ARMOR
+    public static final RegistryObject<Item> PMC_HELMET = REGISTRY.register("pmc_helmet",
+            () -> new pmc_helmet());
+    public static final RegistryObject<Item> PMC_CHEST = REGISTRY.register("pmc_chest",
+            () -> new pmc_chest());
+    public static final RegistryObject<Item> PMC_V2_CHEST = REGISTRY.register("pmc_v2_chest",
+            () -> new pmc_v2_chest());
+
+
+    // AMMO
+    public static final RegistryObject<Item> ITEM_30MM = REGISTRY.register("item_30mm",
+            () -> new Item(new Item.Properties().stacksTo(64)));
+
+    public static final RegistryObject<Item> ITEM_AP_SHELL = REGISTRY.register("ap_shell",
+            () -> new Item(new Item.Properties().stacksTo(64)));
+
+    public static final RegistryObject<Item> ITEM_HE_SHELL = REGISTRY.register("he_shell",
+            () -> new Item(new Item.Properties().stacksTo(64)));
+
+    public static final RegistryObject<Item> ITEM_7_62MM = REGISTRY.register("item_7_62mm",
+            () -> new Item(new Item.Properties().stacksTo(64)));
+
+    public static final RegistryObject<Item> ITEM_12_7MM = REGISTRY.register("item_12_7mm",
+            () -> new Item(new Item.Properties().stacksTo(64)));
+
+    public static final RegistryObject<Item> AT4 = REGISTRY.register("at4",
+            () -> new tech.vvp.vvp.item.gun.At4Item());
 
     public static void register(IEventBus eventBus) {
         REGISTRY.register(eventBus);
