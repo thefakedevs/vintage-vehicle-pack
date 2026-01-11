@@ -1,4 +1,4 @@
-                                                    package tech.vvp.vvp.entity.projectile;
+package tech.vvp.vvp.entity.projectile;
 
 import com.atsuishio.superbwarfare.config.server.ExplosionConfig;
 import com.atsuishio.superbwarfare.entity.projectile.MissileProjectile;

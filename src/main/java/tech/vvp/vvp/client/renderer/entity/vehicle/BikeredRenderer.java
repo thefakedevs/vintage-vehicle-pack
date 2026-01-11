@@ -1,4 +1,4 @@
-package tech.vvp.vvp.client.renderer.entity;
+package tech.vvp.vvp.client.renderer.entity.vehicle;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
@@ -26,7 +26,7 @@ public class BikeredRenderer extends GeoEntityRenderer<BikeredEntity> {
     @Override
     public void render(BikeredEntity entityIn, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {
         poseStack.pushPose();
-        Vec3 root = new Vec3(0, entityIn.rotateYOffset(), 0);
+        Vec3 root = new Vec3(0, entityIn.getRotateOffsetHeight(), 0);
         poseStack.rotateAround(Axis.YP.rotationDegrees(-entityYaw), (float) root.x, (float) root.y, (float) root.z);
         poseStack.rotateAround(Axis.XP.rotationDegrees(Mth.lerp(partialTicks, entityIn.xRotO, entityIn.getXRot())), (float) root.x, (float) root.y, (float) root.z);
         poseStack.rotateAround(Axis.ZP.rotationDegrees(Mth.lerp(partialTicks, entityIn.prevRoll, entityIn.getRoll())), (float) root.x, (float) root.y, (float) root.z);

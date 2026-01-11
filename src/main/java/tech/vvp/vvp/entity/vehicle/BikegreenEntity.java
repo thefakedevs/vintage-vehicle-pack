@@ -4,13 +4,9 @@ import com.atsuishio.superbwarfare.Mod;
 import com.atsuishio.superbwarfare.config.server.ExplosionConfig;
 
 import tech.vvp.vvp.VVP;
-import tech.vvp.vvp.config.server.VehicleConfigVVP;
+import com.atsuishio.superbwarfare.config.server.VehicleConfig;
 
-import com.atsuishio.superbwarfare.entity.OBBEntity;
-import com.atsuishio.superbwarfare.entity.vehicle.base.ArmedVehicleEntity;
-import com.atsuishio.superbwarfare.entity.vehicle.base.ContainerMobileVehicleEntity;
-import com.atsuishio.superbwarfare.entity.vehicle.base.LandArmorEntity;
-import com.atsuishio.superbwarfare.entity.vehicle.base.ThirdPersonCameraPosition;
+import com.atsuishio.superbwarfare.entity.vehicle.base.GeoVehicleEntity;
 import com.atsuishio.superbwarfare.entity.vehicle.damage.DamageModifier;
 import com.atsuishio.superbwarfare.init.*;
 import com.atsuishio.superbwarfare.tools.CustomExplosion;
@@ -47,10 +43,10 @@ import java.util.List;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Math;
-import org.joml.Matrix4f;
-import org.joml.Quaternionf;
-import org.joml.Vector3f;
-import org.joml.Vector4f;
+import org.joml.Matrix4d;
+import org.joml.Quaterniond;
+import org.joml.Vector3d;
+import org.joml.Vector4d;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -65,7 +61,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.Mob;
 
-public class BikegreenEntity extends ContainerMobileVehicleEntity implements GeoEntity, LandArmorEntity, ArmedVehicleEntity, OBBEntity {
+public class BikegreenEntity extends GeoVehicleEntity {
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     public OBB obb;
@@ -73,40 +69,14 @@ public class BikegreenEntity extends ContainerMobileVehicleEntity implements Geo
     public OBB obb2;
     public OBB obb3;
 
-    public BikegreenEntity(EntityType<? extends BikegreenEntity> type, Level world) {
+    public BikegreenEntity(EntityType<BikegreenEntity> type, Level world) {
         super(type, world);
         this.setMaxUpStep(1.5f);
-        this.obb = new OBB(this.position().toVector3f(), new Vector3f(0.3f, 0.4f, 0.4f), new Quaternionf(), OBB.Part.WHEEL_RIGHT);
-        this.obb1 = new OBB(this.position().toVector3f(), new Vector3f(0.3f, 0.4f, 0.4f), new Quaternionf(), OBB.Part.WHEEL_LEFT);
-        this.obb2 = new OBB(this.position().toVector3f(), new Vector3f(0.5f, 0.6f, 0.8f), new Quaternionf(), OBB.Part.BODY);
-        this.obb3 = new OBB(this.position().toVector3f(), new Vector3f(0.4f, 0.5f, 1.2f), new Quaternionf(), OBB.Part.BODY);
-    }
-
-    // Добавляем статический метод для создания атрибутов
-    public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 100.0D)  // Тигр легче Абрамса
-                .add(Attributes.MOVEMENT_SPEED, 1.0D) // Тигр быстрее
-                .add(Attributes.KNOCKBACK_RESISTANCE, 0.8D)
-                .add(Attributes.ARMOR, 10.0D)
-                .add(Attributes.ARMOR_TOUGHNESS, 5.0D);
-    }
-
-    @SuppressWarnings("unchecked")
-    public static BikegreenEntity clientSpawn(PlayMessages.SpawnEntity packet, Level world) {
-        EntityType<?> entityTypeFromPacket = BuiltInRegistries.ENTITY_TYPE.byId(packet.getTypeId());
-        if (entityTypeFromPacket == null) {
-            Mod.LOGGER.error("Failed to create entity from packet: Unknown entity type id: " + packet.getTypeId());
-            return null;
-        }
-        if (!(entityTypeFromPacket instanceof EntityType<?>)) {
-            Mod.LOGGER.error("Retrieved EntityType is not an instance of EntityType<?> for id: " + packet.getTypeId());
-            return null;
-        }
-
-        EntityType<BikegreenEntity> castedEntityType = (EntityType<BikegreenEntity>) entityTypeFromPacket;
-        BikegreenEntity entity = new BikegreenEntity(castedEntityType, world);
-        return entity;
+        Vector3d pos = new Vector3d(this.position().x, this.position().y, this.position().z);
+        this.obb = new OBB(pos, new Vector3d(0.3, 0.4, 0.4), new Quaterniond(), OBB.Part.WHEEL_RIGHT);
+        this.obb1 = new OBB(pos, new Vector3d(0.3, 0.4, 0.4), new Quaterniond(), OBB.Part.WHEEL_LEFT);
+        this.obb2 = new OBB(pos, new Vector3d(0.5, 0.6, 0.8), new Quaterniond(), OBB.Part.BODY);
+        this.obb3 = new OBB(pos, new Vector3d(0.4, 0.5, 1.2), new Quaterniond(), OBB.Part.BODY);
     }
 
     @Override
@@ -136,8 +106,8 @@ public class BikegreenEntity extends ContainerMobileVehicleEntity implements Geo
     }
 
     @Override
-    public ThirdPersonCameraPosition getThirdPersonCameraPosition(int index) {
-        return new ThirdPersonCameraPosition(2.75, 1, 0);
+    public Vec3 getThirdPersonCameraPosition() {
+        return new Vec3(2.75, 1, 0);
     }
 
     @Override
@@ -159,7 +129,7 @@ public class BikegreenEntity extends ContainerMobileVehicleEntity implements Geo
 
     @Override
     protected void playStepSound(BlockPos pPos, BlockState pState) {
-        this.playSound(ModSounds.WHEEL_STEP.get(), (float) (getDeltaMovement().length() * 0.3), random.nextFloat() * 0.15f + 1.05f);
+        // Sound removed - WHEEL_STEP not available
     }
 
     @Override
@@ -194,24 +164,15 @@ public class BikegreenEntity extends ContainerMobileVehicleEntity implements Geo
         this.updateOBB();
 
         if (this.onGround()) {
-            float f0 = 0.54f + 0.25f * Mth.abs(90 - (float) calculateAngle(this.getDeltaMovement(), this.getViewVector(1))) / 90;
-            this.setDeltaMovement(this.getDeltaMovement().add(this.getViewVector(1).normalize().scale(0.05 * this.getDeltaMovement().horizontalDistance())));
+            float f0 = 0.50f + 0.28f * Mth.abs(90 - (float) VectorTool.calculateAngle(this.getDeltaMovement(), this.getViewVector(1))) / 90;
+            this.setDeltaMovement(this.getDeltaMovement().add(this.getViewVector(1).normalize().scale(0.06 * this.getDeltaMovement().horizontalDistance())));
             this.setDeltaMovement(this.getDeltaMovement().multiply(f0, 0.85, f0));
         } else {
-            this.setDeltaMovement(this.getDeltaMovement().multiply(0.99, 0.95, 0.99));
+            this.setDeltaMovement(this.getDeltaMovement().multiply(0.985, 0.95, 0.985));
         }
-
-        lowHealthWarning();
-        this.terrainCompact(2.7f, 3.61f);
-        inertiaRotate(1.25f);
 
 
         this.refreshDimensions();
-    }
-
-    @Override
-    public boolean canCollideHardBlock() {
-        return getDeltaMovement().horizontalDistance() > 0.09 || Mth.abs(this.entityData.get(POWER)) > 0.15;
     }
 
     @Override
@@ -221,35 +182,35 @@ public class BikegreenEntity extends ContainerMobileVehicleEntity implements Geo
         if (this.getEnergy() <= 0) return;
 
         if (passenger0 == null) {
-            this.leftInputDown = false;
-            this.rightInputDown = false;
-            this.forwardInputDown = false;
-            this.backInputDown = false;
+            setLeftInputDown(false);
+            setRightInputDown(false);
+            setForwardInputDown(false);
+            setBackInputDown(false);
             this.entityData.set(POWER, 0f);
         }
 
-        if (forwardInputDown) {
-            this.entityData.set(POWER, Math.min(this.entityData.get(POWER) + (this.entityData.get(POWER) < 0 ? 0.014f : 0.0036f), 0.26f));
+        if (forwardInputDown()) {
+            this.entityData.set(POWER, Math.min(this.entityData.get(POWER) + (this.entityData.get(POWER) < 0 ? 0.016f : 0.0055f), 0.28f));
         }
 
-        if (backInputDown) {
-            this.entityData.set(POWER, Math.max(this.entityData.get(POWER) - (this.entityData.get(POWER) > 0 ? 0.014f : 0.0036f), -0.15f));
+        if (backInputDown()) {
+            this.entityData.set(POWER, Math.max(this.entityData.get(POWER) - (this.entityData.get(POWER) > 0 ? 0.016f : 0.0055f), -0.18f));
         }
 
-        if (rightInputDown) {
-            this.entityData.set(DELTA_ROT, this.entityData.get(DELTA_ROT) + 0.11f);
-        } else if (this.leftInputDown) {
-            this.entityData.set(DELTA_ROT, this.entityData.get(DELTA_ROT) - 0.11f);
+        if (rightInputDown()) {
+            this.entityData.set(DELTA_ROT, this.entityData.get(DELTA_ROT) + 0.16f);
+        } else if (this.leftInputDown()) {
+            this.entityData.set(DELTA_ROT, this.entityData.get(DELTA_ROT) - 0.16f);
         }
 
-        if (this.forwardInputDown || this.backInputDown) {
-            this.consumeEnergy(VehicleConfigVVP.WHEEL_ENERGY_COST.get());
+        if (this.forwardInputDown() || this.backInputDown()) {
+            this.consumeEnergy(1);
         }
 
-        this.entityData.set(POWER, this.entityData.get(POWER) * (upInputDown ? 0.5f : (rightInputDown || leftInputDown) ? 0.977f : 0.99f));
-        this.entityData.set(DELTA_ROT, this.entityData.get(DELTA_ROT) * (float) Math.max(0.76f - 0.1f * this.getDeltaMovement().horizontalDistance(), 0.3));
+        this.entityData.set(POWER, this.entityData.get(POWER) * (upInputDown() ? 0.5f : (rightInputDown() || leftInputDown()) ? 0.96f : 0.989f));
+        this.entityData.set(DELTA_ROT, this.entityData.get(DELTA_ROT) * (float) Math.max(0.78f - 0.09f * this.getDeltaMovement().horizontalDistance(), 0.4f));
 
-        float angle = (float) calculateAngle(this.getDeltaMovement(), this.getViewVector(1));
+        float angle = (float) VectorTool.calculateAngle(this.getDeltaMovement(), this.getViewVector(1));
         double s0;
 
         if (Mth.abs(angle) < 90) {
@@ -261,9 +222,9 @@ public class BikegreenEntity extends ContainerMobileVehicleEntity implements Geo
         this.setLeftWheelRot((float) ((this.getLeftWheelRot() - 1.25 * s0) - this.getDeltaMovement().horizontalDistance() * Mth.clamp(1.5f * this.entityData.get(DELTA_ROT), -5f, 5f)));
         this.setRightWheelRot((float) ((this.getRightWheelRot() - 1.25 * s0) + this.getDeltaMovement().horizontalDistance() * Mth.clamp(1.5f * this.entityData.get(DELTA_ROT), -5f, 5f)));
 
-        this.setRudderRot(Mth.clamp(this.getRudderRot() - this.entityData.get(DELTA_ROT), -0.8f, 0.8f) * 0.75f);
+        this.setRudderRot(Mth.clamp(this.getRudderRot() - this.entityData.get(DELTA_ROT), -0.8f, 0.8f) * 0.70f);
 
-        this.setYRot((float) (this.getYRot() - Math.max(10 * this.getDeltaMovement().horizontalDistance(), 0) * this.getRudderRot() * (this.entityData.get(POWER) > 0 ? 1 : -1)));
+        this.setYRot((float) (this.getYRot() - Math.max(11 * this.getDeltaMovement().horizontalDistance(), 0) * this.getRudderRot() * (this.entityData.get(POWER) > 0 ? 1 : -1)));
         if (onGround()) {
             this.setDeltaMovement(this.getDeltaMovement().add(getViewVector(1).scale(this.entityData.get(POWER))));
         }
@@ -281,25 +242,25 @@ public class BikegreenEntity extends ContainerMobileVehicleEntity implements Geo
     }
 
     @Override
-    public void positionRider(@NotNull Entity passenger, @NotNull MoveFunction callback) {
+    public void positionRider(@NotNull Entity passenger, @NotNull Entity.MoveFunction callback) {
         if (!this.hasPassenger(passenger)) {
             return;
         }
 
-        Matrix4f transform = getVehicleTransform(1);
+        Matrix4d transform = getVehicleTransform(1);
 
         int i = this.getSeatIndex(passenger);
-        Vector4f worldPosition;
+        Vector4d worldPosition;
 
         switch(i) {
             case 0: // Водитель (слева спереди)
-                worldPosition = transformPosition(transform, -0.f, 0.30f, -0.3f);
+                worldPosition = com.atsuishio.superbwarfare.tools.CameraTool.transformPosition(transform, -0.f, 0.30f, -0.3f);
                 break;
             case 1: // Пассажир (взади)
-                worldPosition = transformPosition(transform, 0.f, 0.30f, -0.9f);
+                worldPosition = com.atsuishio.superbwarfare.tools.CameraTool.transformPosition(transform, 0.f, 0.30f, -0.9f);
                 break;
             default:
-                worldPosition = transformPosition(transform, 0, 1, 0);
+                worldPosition = com.atsuishio.superbwarfare.tools.CameraTool.transformPosition(transform, 0, 1, 0);
                 break;
         }
 
@@ -316,7 +277,7 @@ public class BikegreenEntity extends ContainerMobileVehicleEntity implements Geo
     public void destroy() {
         if (level() instanceof ServerLevel) {
             new CustomExplosion.Builder(this)
-                    .attacker(getAttacker())
+                    .attacker(null)
                     .damage(80f)
                     .radius(5f)
                     .damageMultiplier(1f)
@@ -331,61 +292,6 @@ public class BikegreenEntity extends ContainerMobileVehicleEntity implements Geo
     @Override
     public void onPassengerTurned(Entity entity) {
         // Ничего не делаем здесь, чтобы предотвратить вращение турели при повороте головы пассажира
-    }
-
-
-
-    // Реализация методов ArmedVehicleEntity - заглушки, так как оружия у нас больше нет
-
-    @Override
-    public int mainGunRpm(LivingEntity living) {
-        return 0; // Нет оружия
-    }
-
-    @Override
-    public boolean canShoot(LivingEntity living) {
-        return false; // Нет оружия
-    }
-
-    @Override
-    public int getAmmoCount(LivingEntity living) {
-        return 0; // Нет боеприпасов
-    }
-
-    @Override
-    public void vehicleShoot(LivingEntity living, int type) {
-        // Ничего не делаем, т.к. стрелять невозможно
-    }
-
-    @Override
-    public int zoomFov() {
-        return 0; // Нет оптического прицела
-    }
-
-    @Override
-    public int getWeaponHeat(LivingEntity living) {
-        return 0; // Нет нагрева оружия
-    }
-
-    @Override
-    public boolean hidePassenger(Entity entity) {
-        // Пассажиры внутри автомобиля видны
-        return false;
-    }
-
-    @Override
-    public boolean hasDecoy() {
-        return true;
-    }
-
-    @Override
-    public boolean hasPassengerTurretWeapon() {
-        return false;
-    }
-
-    @Override
-    public double getSensitivity(double original, boolean zoom, int seatIndex, boolean isOnGround) {
-        return 0.3; // Нормальная чувствительность для всех пассажиров
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -410,30 +316,25 @@ public class BikegreenEntity extends ContainerMobileVehicleEntity implements Geo
         return super.getCameraPosition(partialTicks, player, false, false);
     }
 
-    @Override
-    public @Nullable ResourceLocation getVehicleItemIcon() {
-        return Mod.loc("textures/gui/vehicle/type/land.png");
-    }
-
     public List<OBB> getOBBs() {
         return List.of(this.obb, this.obb1, this.obb2, this.obb3);
     }
 
     // @Override
     public void updateOBB() {
-        Matrix4f transform = getVehicleTransform(1);
+        Matrix4d transform = getVehicleTransform(1);
 
-        Vector4f worldPosition = transformPosition(transform, 0.0f, 0.4f, 0.8f);
-        this.obb.center().set(new Vector3f(worldPosition.x, worldPosition.y, worldPosition.z));
+        Vector4d worldPosition = com.atsuishio.superbwarfare.tools.CameraTool.transformPosition(transform, 0.0f, 0.4f, 0.8f);
+        this.obb.setCenter(new Vector3d(worldPosition.x, worldPosition.y, worldPosition.z));
         this.obb.setRotation(VectorTool.combineRotations(1, this));
-        Vector4f worldPosition2 = transformPosition(transform, 0.0f, 0.4f, -0.8f);
-        this.obb1.center().set(new Vector3f(worldPosition2.x, worldPosition2.y, worldPosition2.z));
+        Vector4d worldPosition2 = com.atsuishio.superbwarfare.tools.CameraTool.transformPosition(transform, 0.0f, 0.4f, -0.8f);
+        this.obb1.setCenter(new Vector3d(worldPosition2.x, worldPosition2.y, worldPosition2.z));
         this.obb1.setRotation(VectorTool.combineRotations(1, this));
-        Vector4f worldPosition3 = transformPosition(transform, 0.0f, 0.6f, -0.3f);
-        this.obb2.center().set(new Vector3f(worldPosition3.x, worldPosition3.y, worldPosition3.z));
+        Vector4d worldPosition3 = com.atsuishio.superbwarfare.tools.CameraTool.transformPosition(transform, 0.0f, 0.6f, -0.3f);
+        this.obb2.setCenter(new Vector3d(worldPosition3.x, worldPosition3.y, worldPosition3.z));
         this.obb2.setRotation(VectorTool.combineRotations(1, this));
-        Vector4f worldPosition4 = transformPosition(transform, 0.0f, 0.6f, 0.0f);
-        this.obb3.center().set(new Vector3f(worldPosition4.x, worldPosition4.y, worldPosition4.z));
+        Vector4d worldPosition4 = com.atsuishio.superbwarfare.tools.CameraTool.transformPosition(transform, 0.0f, 0.6f, 0.0f);
+        this.obb3.setCenter(new Vector3d(worldPosition4.x, worldPosition4.y, worldPosition4.z));
         this.obb3.setRotation(VectorTool.combineRotations(1, this));
     }
 }

@@ -58,7 +58,7 @@ public class ModItems {
             () -> new tech.vvp.vvp.item.varies.SprayItem());
 
     public static final RegistryObject<Item> ITEM_40_MM = REGISTRY.register("item_40_mm",
-            () -> new Item(new Item.Properties().stacksTo(2)));
+            () -> new Item(new Item.Properties().stacksTo(64)));
 
     // RUS ARMOR
     public static final RegistryObject<Item> RUS_ARMOR = REGISTRY.register("rus_armor",
@@ -95,6 +95,9 @@ public class ModItems {
 
 
     // AMMO
+    public static final RegistryObject<Item> ITEM_20MM = REGISTRY.register("item_20_mm",
+            () -> new Item(new Item.Properties().stacksTo(64)));
+
     public static final RegistryObject<Item> ITEM_30MM = REGISTRY.register("item_30mm",
             () -> new Item(new Item.Properties().stacksTo(64)));
 

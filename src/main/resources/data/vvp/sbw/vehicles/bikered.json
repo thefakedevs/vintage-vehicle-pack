@@ -1,9 +1,18 @@
 {
-  "ID": "vvp:vazik",
-  "MaxHealth": 100,
-  "MaxEnergy": 3000000,
+  "ID": "vvp:bikered",
+  "ContainerIcon": "vvp:textures/gui/vehicle/type/civilian_ru.png",
+  "MaxHealth": 40,
+  "MaxEnergy": 2500000,
   "UpStep": 1.5,
-  "Mass": 10.6,
+  "Mass": 7.6,
+  "Seats": [
+    {
+      "Position": [0, 0.5, 0],
+      "DismountInfo": {
+        "Position": [0, 0, 0]
+      }
+    }
+  ],
   "DamageModifiers": [
     "All * 0.4",
     "minecraft:arrow * 1.5",

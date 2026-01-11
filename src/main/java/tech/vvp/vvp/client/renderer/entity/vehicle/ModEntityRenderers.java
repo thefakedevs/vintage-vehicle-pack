@@ -49,11 +49,18 @@ public class ModEntityRenderers {
 
         event.registerEntityRenderer(ModEntities.PANTSIR_MISSILE.get(), PantsirMissileRenderer::new);
 
-        event.registerEntityRenderer(ModEntities.SPIKE_MISSLE.get(), SpikeATGMRenderer::new);
-        event.registerEntityRenderer(ModEntities.TOW_MISSILE.get(), TOWRenderer::new);
+        // Commented out - these entity types and renderers don't exist
+        // event.registerEntityRenderer(ModEntities.SPIKE_MISSLE.get(), SpikeATGMRenderer::new);
+        // event.registerEntityRenderer(ModEntities.TOW_MISSILE.get(), TOWRenderer::new);
         event.registerEntityRenderer(ModEntities.BIKEGREEN.get(), BikegreenRenderer::new);
         event.registerEntityRenderer(ModEntities.BIKERED.get(), BikeredRenderer::new);
         event.registerEntityRenderer(ModEntities.VAZIK.get(), VazikRenderer::new);
+
+        event.registerEntityRenderer(ModEntities.MI_8.get(), Mi8Renderer::new);
+        event.registerEntityRenderer(ModEntities.TOYOTA.get(), ToyotaRenderer::new);
+        event.registerEntityRenderer(ModEntities.UH_60.get(), Uh60Renderer::new);
+        event.registerEntityRenderer(ModEntities.UH_60MOD.get(), Uh60ModRenderer::new);
+        event.registerEntityRenderer(ModEntities.UH_60_WEAPON.get(), Uh60WeaponRenderer::new);
     }
 
     /**

@@ -540,6 +540,10 @@ public class PantsirS1Entity extends CamoVehicleBase {
         
         // Проверяем какое оружие выбрано (0 = пушка, 1 = ракеты)
         int seatIndex = this.getSeatIndex(operator);
+        if (seatIndex < 0 || seatIndex >= this.getMaxPassengers()) {
+            this.entityData.set(AUTO_AIM_ACTIVE, false);
+            return;
+        }
         int weaponIndex = this.getSelectedWeapon(seatIndex);
         
         Vec3 aimVector;

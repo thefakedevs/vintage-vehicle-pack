@@ -71,6 +71,21 @@ public class ModEntities {
     public static final RegistryObject<EntityType<Mi24Entity>> MI_24 = register("mi_24",
             EntityType.Builder.of(Mi24Entity::new, MobCategory.MISC).setTrackingRange(512).setUpdateInterval(1).fireImmune().sized(4f, 4f));
 
+    public static final RegistryObject<EntityType<Mi8Entity>> MI_8 = register("mi_8",
+            EntityType.Builder.of(Mi8Entity::new, MobCategory.MISC).setTrackingRange(512).setUpdateInterval(1).fireImmune().sized(4f, 4f));
+
+    public static final RegistryObject<EntityType<Uh60Entity>> UH_60 = register("uh60",
+            EntityType.Builder.of(Uh60Entity::new, MobCategory.MISC).setTrackingRange(512).setUpdateInterval(1).fireImmune().sized(4f, 4f));
+
+    public static final RegistryObject<EntityType<Uh60WeaponEntity>> UH_60_WEAPON = register("uh_60_weapon",
+            EntityType.Builder.of(Uh60WeaponEntity::new, MobCategory.MISC).setTrackingRange(512).setUpdateInterval(1).fireImmune().sized(4f, 4f));
+
+    public static final RegistryObject<EntityType<Uh60ModEntity>> UH_60MOD = register("uh60mod",
+            EntityType.Builder.of(Uh60ModEntity::new, MobCategory.MISC).setTrackingRange(512).setUpdateInterval(1).fireImmune().sized(4f, 4f));
+
+    public static final RegistryObject<EntityType<ToyotaEntity>> TOYOTA = register("toyota",
+            EntityType.Builder.of(ToyotaEntity::new, MobCategory.MISC).setTrackingRange(512).setUpdateInterval(1).fireImmune().sized(2.5f, 2.0f));
+
     public static final RegistryObject<EntityType<Leopard2A7VEntity>> LEOPARD_2A7V = register("leopard_2a7v",
             EntityType.Builder.of(Leopard2A7VEntity::new, MobCategory.MISC).setTrackingRange(512).setUpdateInterval(1).fireImmune().sized(4f, 4f));
 
@@ -89,33 +104,14 @@ public class ModEntities {
     public static final RegistryObject<EntityType<T72B3MEntity>> T72_B3M = register("t72_b3m",
             EntityType.Builder.of(T72B3MEntity::new, MobCategory.MISC).setTrackingRange(512).setUpdateInterval(1).fireImmune().sized(4f, 4f));
 
-    public static final RegistryObject<EntityType<BikegreenEntity>> BIKEGREEN = ENTITY_TYPES.register("bikegreen",
-            () -> EntityType.Builder.<BikegreenEntity>of(BikegreenEntity::new, MobCategory.MISC)
-                    .setTrackingRange(64)
-                    .setUpdateInterval(1)
-                    .setCustomClientFactory(BikegreenEntity::clientSpawn)
-                    .fireImmune()
-                    .sized(1.2f, 1.5f)
-                    .build("bikegreen"));
+    public static final RegistryObject<EntityType<BikegreenEntity>> BIKEGREEN = register("bikegreen",
+            EntityType.Builder.of(BikegreenEntity::new, MobCategory.MISC).setTrackingRange(512).setUpdateInterval(1).fireImmune().sized(1.2f, 1.5f));
 
-    public static final RegistryObject<EntityType<BikeredEntity>> BIKERED = ENTITY_TYPES.register("bikered",
-            () -> EntityType.Builder.<BikeredEntity>of(BikeredEntity::new, MobCategory.MISC)
-                    .setTrackingRange(64)
-                    .setUpdateInterval(1)
-                    .setCustomClientFactory(BikeredEntity::clientSpawn)
-                    .fireImmune()
-                    .sized(1.2f, 1.5f)
-                    .build("bikered"));
+    public static final RegistryObject<EntityType<BikeredEntity>> BIKERED = register("bikered",
+            EntityType.Builder.of(BikeredEntity::new, MobCategory.MISC).setTrackingRange(512).setUpdateInterval(1).fireImmune().sized(1.2f, 1.5f));
 
-    public static final RegistryObject<EntityType<VazikEntity>> VAZIK = ENTITY_TYPES.register("vazik",
-            () -> EntityType.Builder.<VazikEntity>of(VazikEntity::new, MobCategory.MISC)
-                    .setTrackingRange(64)
-                    .setUpdateInterval(1)
-                    .setCustomClientFactory(VazikEntity::clientSpawn)
-                    .fireImmune()
-                    .sized(2.5f, 2.0f)
-                    .build("vazik"));
-
+    public static final RegistryObject<EntityType<VazikEntity>> VAZIK = register("vazik",
+            EntityType.Builder.of(VazikEntity::new, MobCategory.MISC).setTrackingRange(512).setUpdateInterval(1).fireImmune().sized(2.5f, 2.0f));
 
     public static final RegistryObject<EntityType<UralEntity>> URAL = register("ural",
             EntityType.Builder.of(UralEntity::new, MobCategory.MISC).setTrackingRange(512).setUpdateInterval(1).fireImmune().sized(4f, 5f));
