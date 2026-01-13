@@ -272,22 +272,6 @@ public class VazikEntity extends GeoVehicleEntity {
     }
 
     @Override
-    public void destroy() {
-        if (level() instanceof ServerLevel) {
-            new CustomExplosion.Builder(this)
-                    .attacker(null)
-                    .damage(80f)
-                    .radius(5f)
-                    .damageMultiplier(1f)
-                    .withParticleType(ParticleTool.ParticleType.MEDIUM)
-                    .explode();
-        }
-
-        explodePassengers();
-        super.destroy();
-    }
-
-    @Override
     public void onPassengerTurned(Entity entity) {
         // Ничего не делаем здесь, чтобы предотвратить вращение турели при повороте головы пассажира
     }

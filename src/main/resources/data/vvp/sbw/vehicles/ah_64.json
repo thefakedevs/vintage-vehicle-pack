@@ -43,9 +43,6 @@
       "Position": [0, 4.40625, -1.375],
       "Part": "SubEngine"
     }
-
-
-
   ],
   "Seats": [
     {
@@ -56,7 +53,7 @@
         "Transform": "Vehicle",
         "Position": [0, 3.4, 1.4],
         "UseFixedCameraPos": true,
-        "UseAircraftCamera": true,
+        "AircraftCamera": true,
         "AircraftCameraPos": [-3.8, 3.5, -13]
       },
       "CanRotateHead": false,
@@ -97,7 +94,7 @@
       "DefaultFireMode": "Auto",
       "AvailableFireModes": "Auto",
       "Projectile": "superbwarfare:small_cannon_shell",
-      "Icon": "superbwarfare:textures/overlay/vehicle/weapon/icons/cannon_30mm.png",
+      "Icon": "superbwarfare:textures/vehicle/weapon/cannon_30mm.png",
       "DefaultZoom": 3,
       "RPM": 300,
       "Velocity": 30,
@@ -129,7 +126,7 @@
     },
     "Rocket": {
       "AmmoType": "superbwarfare:small_rocket",
-      "Icon": "superbwarfare:textures/overlay/vehicle/weapon/icons/small_rocket.png",
+      "Icon": "superbwarfare:textures/screens/vehicle_weapon/small_rocket.png",
       "DefaultZoom": 2,
       "DefaultFireMode": "Auto",
       "AvailableFireModes": "Auto",
@@ -184,7 +181,7 @@
           }
         }
       ],
-      "Icon": "superbwarfare:textures/overlay/vehicle/weapon/icons/kh_39.png",
+      "Icon": "superbwarfare:textures/screens/vehicle_weapon/kh_39.png",
       "DefaultZoom": 3,
       "DefaultFireMode": "Semi",
       "Magazine": 2,
@@ -286,6 +283,7 @@
   "VehicleIcon": "superbwarfare:textures/vehicle_icon/ah_64_icon.png",
   "ContainerIcon": "vvp:textures/gui/vehicle/type/aircraft.png",
   "Type": "Helicopter",
+  "MainWeaponHudType": "@Helicopter",
   "HudType": "@Helicopter",
   "TerrainCompat": [[-1.284, 0, 1.728], [1.284, 0, 1.728], [0, 0.58, -11.1]],
   "TerrainCompatRotateRate" : 0.18

@@ -179,7 +179,7 @@
       }
     },
     "MachineGun": {
-      "Icon": "superbwarfare:textures/overlay/vehicle/weapon/icons/gun_12_7mm.png",
+      "Icon": "superbwarfare:textures/screens/vehicle_weapon/gun_12_7mm.png",
       "DefaultFireMode": "Auto",
       "AvailableFireModes": "Auto",
       "Spread": 0.25,

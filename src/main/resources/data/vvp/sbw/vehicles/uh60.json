@@ -16,30 +16,27 @@
         "Transform": "Vehicle",
         "Position": [0.7, 2.6, 3],
         "UseFixedCameraPos": true,
-        "UseAircraftCamera": true,
+        "AircraftCamera": true,
         "AircraftCameraPos": [-3.5, 3.5, -12]
       },
       "CanRotateHead": false,
       "HidePassenger": false,
       "DismountInfo": {"Transform": "Vehicle", "Position": [-2, 0.5, 1.5]}
     },
-    {
-      "Transform": "Vehicle",
-      "Position": [-0.7, 1, 3],
-      "CameraPos": {
-        "Transform": "Vehicle",
-        "Position": [-0.7, 2.6, 3],
-        "UseFixedCameraPos": true,
-        "UseAircraftCamera": true,
-        "AircraftCameraPos": [-3.5, 3.5, -12]
-      },
-      "HidePassenger": false,
-      "CanRotateHead": false,
-      "DismountInfo": {"Transform": "Vehicle", "Position": [2, 0.5, 1.5]}
-    },
+    {"Transform": "Vehicle", "Position": [-0.7, 1, 3]},
+
+    {"Transform": "Vehicle", "Position": [0.8, 1, 2], "Orientation": 270},
+    {"Transform": "Vehicle", "Position": [0, 1, 2], "Orientation": 180},
+    {"Transform": "Vehicle", "Position": [-0.8, 1, 2], "Orientation": 90},
+
     {"Transform": "Vehicle", "Position": [0.8, 1, 0], "Orientation": 180},
+    {"Transform": "Vehicle", "Position": [0.4, 1, 0], "Orientation": 180},
+    {"Transform": "Vehicle", "Position": [-0.4, 1, 0], "Orientation": 180},
     {"Transform": "Vehicle", "Position": [-0.8, 1, 0], "Orientation": 180},
+    
     {"Transform": "Vehicle", "Position": [0.8, 1, -1]},
+    {"Transform": "Vehicle", "Position": [0.4, 1, -1]},
+    {"Transform": "Vehicle", "Position": [-0.4, 1, -1]},
     {"Transform": "Vehicle", "Position": [-0.8, 1, -1]}
   ],
   "EngineType": "Helicopter",
@@ -75,6 +72,7 @@
   "VehicleIcon": "vvp:textures/vehicle_icon/uh60_icon.png",
   "ContainerIcon": "vvp:textures/gui/vehicle/type/aircraft.png",
   "Type": "Helicopter",
+  "MainWeaponHudType": "@Helicopter",
   "HudType": "@Helicopter",
   "TerrainCompat": [[-1.2, 0, 1.8], [1.2, 0, 1.8], [0, 0.5, -8]]
 }

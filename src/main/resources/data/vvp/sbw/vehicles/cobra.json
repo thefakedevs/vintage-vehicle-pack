@@ -21,7 +21,7 @@
         "Transform": "Vehicle",
         "Position": [0, 2.8, 1.5],
         "UseFixedCameraPos": true,
-        "UseAircraftCamera": true,
+        "AircraftCamera": true,
         "AircraftCameraPos": [-3, 3, -10]
       },
       "CanRotateHead": false,
@@ -52,7 +52,7 @@
       "DefaultFireMode": "Auto",
       "AvailableFireModes": "Auto",
       "Projectile": "superbwarfare:small_cannon_shell",
-      "Icon": "superbwarfare:textures/overlay/vehicle/weapon/icons/cannon_20mm.png",
+      "Icon": "superbwarfare:textures/screens/vehicle_weapon/cannon_20mm.png",
       "DefaultZoom": 3,
       "RPM": 750,
       "Velocity": 30,
@@ -75,7 +75,7 @@
     },
     "Rocket": {
       "AmmoType": "superbwarfare:small_rocket",
-      "Icon": "superbwarfare:textures/overlay/vehicle/weapon/icons/small_rocket.png",
+      "Icon": "superbwarfare:textures/screens/vehicle_weapon/small_rocket.png",
       "DefaultZoom": 2,
       "DefaultFireMode": "Auto",
       "AvailableFireModes": "Auto",
@@ -120,7 +120,7 @@
       "Crosshair": "@VehicleCommonMissile",
       "CrosshairColor": "0x00FF66",
       "SoundInfo": {"Fire1P": "superbwarfare:bmp_2_missile_fire_1p", "Fire3P": "superbwarfare:bmp_2_missile_fire_3p", "Change": "vvp:into_atgm"},
-      "Icon": "superbwarfare:textures/overlay/vehicle/weapon/icons/missile_9m113.png"
+      "Icon": "superbwarfare:textures/screens/vehicle_weapon/missile_9m113.png"
     }
   },
   "EngineType": "Helicopter",
@@ -156,6 +156,7 @@
   "VehicleIcon": "vvp:textures/vehicle_icon/cobra_icon.png",
   "ContainerIcon": "vvp:textures/gui/vehicle/type/aircraft.png",
   "Type": "Helicopter",
+  "MainWeaponHudType": "@Helicopter",
   "HudType": "@Helicopter",
   "TerrainCompat": [[-1, 0, 1.5], [1, 0, 1.5], [0, 0.5, -8]]
 }

@@ -192,7 +192,7 @@
         "Change": "vvp:into_coax"
       },
       "SoundRadius": 12,
-      "Icon": "superbwarfare:textures/overlay/vehicle/weapon/icons/gun_7_62mm.png"
+      "Icon": "superbwarfare:textures/screens/vehicle_weapon/gun_7_62mm.png"
     },
     "Missile": {
       "DefaultFireMode": "Semi",

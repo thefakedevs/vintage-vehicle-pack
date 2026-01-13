@@ -141,7 +141,7 @@
         "Change": "vvp:into_atgm"
       },
       "SoundRadius": 12,
-      "Icon": "superbwarfare:textures/overlay/vehicle/weapon/icons/missile_9m113.png"
+      "Icon": "superbwarfare:textures/screens/vehicle_weapon/missile_9m113.png"
     }
   },
   "EngineType": "Track",
