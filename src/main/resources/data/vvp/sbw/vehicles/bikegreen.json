@@ -2,6 +2,12 @@
   "ID": "vvp:bikegreen",
   "ContainerIcon": "vvp:textures/gui/vehicle/type/civilian_ru.png",
   "MaxHealth": 40,
+  "OBB": [
+    {"Size": [0.3, 0.4, 0.4], "Position": [0, 0.4, 0.8], "Part": "WheelRight"},
+    {"Size": [0.3, 0.4, 0.4], "Position": [0, 0.4, -0.8], "Part": "WheelLeft"},
+    {"Size": [0.5, 0.6, 0.8], "Position": [0, 0.6, -0.3], "Part": "MainEngine"},
+    {"Size": [0.4, 0.5, 1.2], "Position": [0, 0.6, 0], "Part": "SubEngine"}
+  ],
   "MaxEnergy": 2500000,
   "UpStep": 1.5,
   "Mass": 7.6,
@@ -37,5 +43,10 @@
     "@superbwarfare:mortar_shell * 1.1",
     "@superbwarfare:gun_grenade * 1.5",
     "@superbwarfare:javelin_missile * 0.8"
-  ]
+  ],
+  "DestroyInfo": {
+    "ParticleType": "Small",
+    "ExplosionDamage": 30,
+    "ExplosionRadius": 3
+  }
 }
