@@ -117,25 +117,6 @@ public class VazikEntity extends GeoVehicleEntity {
     }
 
     @Override
-    public DamageModifier getDamageModifier() {
-        return super.getDamageModifier()
-                .multiply(1.5f)  // Базовый урон увеличен в 2.5 раза
-                .multiply(3f, DamageTypes.ARROW)
-                .multiply(3f, DamageTypes.TRIDENT)
-                .multiply(4f, DamageTypes.MOB_ATTACK)
-                .multiply(3f, DamageTypes.MOB_ATTACK_NO_AGGRO)
-                .multiply(3f, DamageTypes.MOB_PROJECTILE)
-                .multiply(15f, DamageTypes.LAVA)
-                .multiply(8f, DamageTypes.EXPLOSION)
-                .multiply(8f, DamageTypes.PLAYER_EXPLOSION)
-                .multiply(5f, ModDamageTypes.CUSTOM_EXPLOSION)
-                .multiply(4f, ModDamageTypes.MINE)
-                .multiply(2f, ModTags.DamageTypes.PROJECTILE)
-                .multiply(2f, ModTags.DamageTypes.PROJECTILE_ABSOLUTE)
-                .multiply(15f, ModDamageTypes.VEHICLE_STRIKE);
-    }
-
-    @Override
     public void baseTick() {
         turretYRotO = this.getTurretYRot();
         turretXRotO = this.getTurretXRot();
@@ -144,8 +125,6 @@ public class VazikEntity extends GeoVehicleEntity {
         rightWheelRotO = this.getRightWheelRot();
 
         super.baseTick();
-        this.updateOBB();
-
 
         if (this.onGround()) {
             float f0 = 0.56f + 0.28f * Mth.abs(90 - (float) VectorTool.calculateAngle(this.getDeltaMovement(), this.getViewVector(1))) / 90;

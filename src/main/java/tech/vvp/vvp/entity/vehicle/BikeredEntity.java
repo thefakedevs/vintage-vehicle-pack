@@ -64,19 +64,10 @@ import net.minecraft.world.entity.Mob;
 public class BikeredEntity extends GeoVehicleEntity {
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-    public OBB obb;
-    public OBB obb1;
-    public OBB obb2;
-    public OBB obb3;
 
     public BikeredEntity(EntityType<BikeredEntity> type, Level world) {
         super(type, world);
         this.setMaxUpStep(1.5f);
-        Vector3d pos = new Vector3d(this.position().x, this.position().y, this.position().z);
-        this.obb = new OBB(pos, new Vector3d(0.3, 0.4, 0.4), new Quaterniond(), OBB.Part.WHEEL_RIGHT);
-        this.obb1 = new OBB(pos, new Vector3d(0.3, 0.4, 0.4), new Quaterniond(), OBB.Part.WHEEL_LEFT);
-        this.obb2 = new OBB(pos, new Vector3d(0.5, 0.6, 0.8), new Quaterniond(), OBB.Part.BODY);
-        this.obb3 = new OBB(pos, new Vector3d(0.4, 0.5, 1.2), new Quaterniond(), OBB.Part.BODY);
     }
 
     @Override
@@ -130,26 +121,6 @@ public class BikeredEntity extends GeoVehicleEntity {
     @Override
     protected void playStepSound(BlockPos pPos, BlockState pState) {
         // Sound removed - WHEEL_STEP not available
-    }
-
-    @Override
-    public DamageModifier getDamageModifier() {
-        // Мотоцикл - легкий транспорт, получает больше урона чем танки
-        return super.getDamageModifier()
-                .multiply(2.5f)  // Базовый урон увеличен в 2.5 раза
-                .multiply(3f, DamageTypes.ARROW)
-                .multiply(3f, DamageTypes.TRIDENT)
-                .multiply(4f, DamageTypes.MOB_ATTACK)
-                .multiply(3f, DamageTypes.MOB_ATTACK_NO_AGGRO)
-                .multiply(3f, DamageTypes.MOB_PROJECTILE)
-                .multiply(15f, DamageTypes.LAVA)
-                .multiply(8f, DamageTypes.EXPLOSION)
-                .multiply(8f, DamageTypes.PLAYER_EXPLOSION)
-                .multiply(5f, ModDamageTypes.CUSTOM_EXPLOSION)
-                .multiply(4f, ModDamageTypes.MINE)
-                .multiply(2f, ModTags.DamageTypes.PROJECTILE)
-                .multiply(2f, ModTags.DamageTypes.PROJECTILE_ABSOLUTE)
-                .multiply(15f, ModDamageTypes.VEHICLE_STRIKE);
     }
 
     @Override
@@ -274,22 +245,6 @@ public class BikeredEntity extends GeoVehicleEntity {
     }
 
     @Override
-    public void destroy() {
-        if (level() instanceof ServerLevel) {
-            new CustomExplosion.Builder(this)
-                    .attacker(null)
-                    .damage(80f)
-                    .radius(5f)
-                    .damageMultiplier(1f)
-                    .withParticleType(ParticleTool.ParticleType.MEDIUM)
-                    .explode();
-        }
-
-        explodePassengers();
-        super.destroy();
-    }
-
-    @Override
     public void onPassengerTurned(Entity entity) {
         // Ничего не делаем здесь, чтобы предотвратить вращение турели при повороте головы пассажира
     }
@@ -320,27 +275,5 @@ public class BikeredEntity extends GeoVehicleEntity {
                     Mth.lerp(partialTicks, player.zo, player.getZ()));
         }
         return super.getCameraPosition(partialTicks, player, false, false);
-    }
-
-    public List<OBB> getOBBs() {
-        return List.of(this.obb, this.obb1, this.obb2, this.obb3);
-    }
-
-    // @Override
-    public void updateOBB() {
-        Matrix4d transform = getVehicleTransform(1);
-
-        Vector4d worldPosition = com.atsuishio.superbwarfare.tools.CameraTool.transformPosition(transform, 0.0f, 0.4f, 0.8f);
-        this.obb.setCenter(new Vector3d(worldPosition.x, worldPosition.y, worldPosition.z));
-        this.obb.setRotation(VectorTool.combineRotations(1, this));
-        Vector4d worldPosition2 = com.atsuishio.superbwarfare.tools.CameraTool.transformPosition(transform, 0.0f, 0.4f, -0.8f);
-        this.obb1.setCenter(new Vector3d(worldPosition2.x, worldPosition2.y, worldPosition2.z));
-        this.obb1.setRotation(VectorTool.combineRotations(1, this));
-        Vector4d worldPosition3 = com.atsuishio.superbwarfare.tools.CameraTool.transformPosition(transform, 0.0f, 0.6f, -0.3f);
-        this.obb2.setCenter(new Vector3d(worldPosition3.x, worldPosition3.y, worldPosition3.z));
-        this.obb2.setRotation(VectorTool.combineRotations(1, this));
-        Vector4d worldPosition4 = com.atsuishio.superbwarfare.tools.CameraTool.transformPosition(transform, 0.0f, 0.6f, 0.0f);
-        this.obb3.setCenter(new Vector3d(worldPosition4.x, worldPosition4.y, worldPosition4.z));
-        this.obb3.setRotation(VectorTool.combineRotations(1, this));
     }
 }
