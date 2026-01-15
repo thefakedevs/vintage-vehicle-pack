@@ -212,6 +212,15 @@ public class BikeredEntity extends GeoVehicleEntity {
         return Mth.abs(entityData.get(POWER)) * 2f;
     }
 
+    /**
+     * Server-safe position transformation (avoids client-only CameraTool)
+     */
+    private Vector4d transformPositionSafe(Matrix4d transform, double x, double y, double z) {
+        Vector4d pos = new Vector4d(x, y, z, 1.0);
+        transform.transform(pos);
+        return pos;
+    }
+
     @Override
     public void positionRider(@NotNull Entity passenger, @NotNull Entity.MoveFunction callback) {
         if (!this.hasPassenger(passenger)) {
@@ -225,13 +234,13 @@ public class BikeredEntity extends GeoVehicleEntity {
 
         switch(i) {
             case 0: // Водитель (слева спереди)
-                worldPosition = com.atsuishio.superbwarfare.tools.CameraTool.transformPosition(transform, -0.f, 0.30f, -0.3f);
+                worldPosition = transformPositionSafe(transform, -0.f, 0.30f, -0.3f);
                 break;
             case 1: // Пассажир (взади)
-                worldPosition = com.atsuishio.superbwarfare.tools.CameraTool.transformPosition(transform, 0.f, 0.30f, -0.9f);
+                worldPosition = transformPositionSafe(transform, 0.f, 0.30f, -0.9f);
                 break;
             default:
-                worldPosition = com.atsuishio.superbwarfare.tools.CameraTool.transformPosition(transform, 0, 1, 0);
+                worldPosition = transformPositionSafe(transform, 0, 1, 0);
                 break;
         }
 

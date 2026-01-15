@@ -212,6 +212,15 @@ public class VazikEntity extends GeoVehicleEntity {
         return Mth.abs(entityData.get(POWER)) * 2f;
     }
 
+    /**
+     * Server-safe position transformation (avoids client-only CameraTool)
+     */
+    private Vector4d transformPositionSafe(Matrix4d transform, double x, double y, double z) {
+        Vector4d pos = new Vector4d(x, y, z, 1.0);
+        transform.transform(pos);
+        return pos;
+    }
+
     @Override
     public void positionRider(@NotNull Entity passenger, @NotNull Entity.MoveFunction callback) {
         if (!this.hasPassenger(passenger)) {
@@ -225,19 +234,19 @@ public class VazikEntity extends GeoVehicleEntity {
 
         switch(i) {
             case 0: // Водитель (слева спереди)
-                worldPosition = com.atsuishio.superbwarfare.tools.CameraTool.transformPosition(transform, 0.4f, 0.30f, 0.2f);
+                worldPosition = transformPositionSafe(transform, 0.4f, 0.30f, 0.2f);
                 break;
             case 1: // Пассажир рядом с водителем
-                worldPosition = com.atsuishio.superbwarfare.tools.CameraTool.transformPosition(transform, -0.4f, 0.30f, 0.3f);
+                worldPosition = transformPositionSafe(transform, -0.4f, 0.30f, 0.3f);
                 break;
             case 2: // Пассажир сзади слева
-                worldPosition = com.atsuishio.superbwarfare.tools.CameraTool.transformPosition(transform, 0.4f, 0.30f, -0.7f);
+                worldPosition = transformPositionSafe(transform, 0.4f, 0.30f, -0.7f);
                 break;
             case 3: // Пассажир сзади справа
-                worldPosition = com.atsuishio.superbwarfare.tools.CameraTool.transformPosition(transform, -0.6f, 0.30f, -0.9f);
+                worldPosition = transformPositionSafe(transform, -0.6f, 0.30f, -0.9f);
                 break;
             default:
-                worldPosition = com.atsuishio.superbwarfare.tools.CameraTool.transformPosition(transform, 0, 1, 0);
+                worldPosition = transformPositionSafe(transform, 0, 1, 0);
                 break;
         }
 
