@@ -280,7 +280,7 @@
     "CrashPassengers": true
   },
   "HUDColor": "0x66FF00",
-  "VehicleIcon": "superbwarfare:textures/vehicle_icon/ah_64_icon.png",
+  "VehicleIcon": "vvp:textures/vehicle_icon/ah_64_icon.png",
   "ContainerIcon": "vvp:textures/gui/vehicle/type/aircraft.png",
   "Type": "Helicopter",
   "MainWeaponHudType": "@Helicopter",

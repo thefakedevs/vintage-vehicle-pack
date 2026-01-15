@@ -241,7 +241,7 @@
     "ExplosionDamage": 150,
     "ExplosionRadius": 8
   },
-  "VehicleIcon": "superbwarfare:textures/vehicle_icon/pantsir_s1_icon.png",
+  "VehicleIcon": "vvp:textures/vehicle_icon/pantsir_s1_icon.png",
   "ContainerIcon": "vvp:textures/gui/vehicle/type/land_ru.png",
   "Type": "SPAAG",
   "CollisionLevel": {
