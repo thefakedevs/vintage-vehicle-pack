@@ -94,7 +94,7 @@
       "DefaultFireMode": "Auto",
       "AvailableFireModes": "Auto",
       "Projectile": "superbwarfare:small_cannon_shell",
-      "Icon": "superbwarfare:textures/vehicle/weapon/cannon_30mm.png",
+      "Icon": "superbwarfare:textures/screens/vehicle_weapon/cannon_30mm.png",
       "DefaultZoom": 3,
       "RPM": 300,
       "Velocity": 30,
