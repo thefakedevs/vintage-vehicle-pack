@@ -75,7 +75,7 @@
       "DefaultFireMode": "Auto",
       "AvailableFireModes": "Auto",
       "Projectile": "superbwarfare:small_cannon_shell",
-      "Icon": "vvp:textures/screens/vehicle_weapon/12_7mm.png",
+      "Icon": "superbwarfare:textures/vehicle/weapon/cannon_30mm.png",
       "DefaultZoom": 3,
       "RPM": 800,
       "Velocity": 30,
@@ -87,7 +87,7 @@
       "RecoilTime": 31,
       "RecoilForce": 0.62,
       "Spread": 0.25,
-      "Name": "weapon.vvp.2a42_30mm",
+      "Name": "weapon.vvp.30mm_cannon",
       "SoundInfo": {
         "Fire1P": "superbwarfare:mi_28_cannon_fire_1p",
         "Fire3P": "superbwarfare:bmp_2_cannon_fire_3p",
@@ -98,7 +98,7 @@
       "Crosshair": "@VehicleCommonGunDynamic",
       "CrosshairColor": "0xFFC700",
       "SoundRadius": 24,
-      "AmmoType": "vvp:item_12_7mm",
+      "AmmoType": "superbwarfare:small_shell",
       "ShootPos": {
         "Transform": "Vehicle",
         "Positions": [[-0.5625, 1.59375, 2.9375], [-0.5625, 1.484375, 2.9375]],
