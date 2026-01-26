@@ -126,7 +126,7 @@
     },
     "Rocket": {
       "AmmoType": "superbwarfare:small_rocket",
-      "Icon": "superbwarfare:textures/vehicle/weapon/small_rocket.png",
+      "Icon": "superbwarfare:textures/screens/vehicle_weapon/small_rocket.png",
       "DefaultZoom": 2,
       "DefaultFireMode": "Auto",
       "AvailableFireModes": "Auto",

@@ -182,7 +182,7 @@ dependencies {
     implementation fg.deobf("curse.maven:geckolib-388172:6658942")
     //implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.20.1:4.4.6')
     // implementation fg.deobf("curse.maven:superb-warfare-1218165:7274419")
-    implementation fg.deobf("com.atsushio.superbwarfare:superbwarfare:svocraft-1.20.1-0.8.8-25634d82d") {
+    implementation fg.deobf("com.atsushio.superbwarfare:superbwarfare:svocraft-1.20.1-0.8.8-c7570ac14") {
         transitive = false
     }
     implementation fg.deobf("curse.maven:jei-238222:6600311")

@@ -3,7 +3,7 @@
   "MaxHealth": 320,
   "MaxEnergy": 8000000,
   "OBB": [
-    {"Size": [1.5, 1.5, 4], "Position": [0, 2, 0]},
+    {"Size": [1.5, 1.5, 5], "Position": [0, 2, 0]},
     {"Size": [0.8, 1, 4], "Position": [0, 3.3, -8], "Part": "MainEngine"},
     {"Size": [0.4, 1.5, 1], "Position": [0, 4.8, -15.7], "Part": "SubEngine"}
   ],
@@ -69,5 +69,5 @@
   "Type": "Helicopter",
   "MainWeaponHudType": "@Helicopter",
   "HudType": "@Helicopter",
-  "TerrainCompat": [[-1.5, 0, 2], [1.5, 0, 2], [0, 0.5, -10]]
+  "TerrainCompat": [[-1.5, 0, 2], [1.5, 0, 2], [0, 0.5, -3]]
 }
