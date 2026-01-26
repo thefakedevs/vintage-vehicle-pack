@@ -285,6 +285,6 @@
   "Type": "Helicopter",
   "MainWeaponHudType": "@Helicopter",
   "HudType": "@Helicopter",
-  "TerrainCompat": [[-1.284, 0, 1.728], [1.284, 0, 1.728], [0, 0.58, -11.1]],
+  "TerrainCompat": [[-1.284, 0, 1.728], [1.284, 0, 1.728], [0, 1.1, -11.1]],
   "TerrainCompatRotateRate" : 0.18
 }

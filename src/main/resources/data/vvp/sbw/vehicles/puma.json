@@ -171,7 +171,7 @@
       "HeatPerShoot": 4,
       "NaturalCooldown": 1,
       "CrosshairColor": "0x66FF00",
-      "AmmoType": "item_7_62mm",
+      "AmmoType": "vvp:item_7_62mm",
       "Projectile": "superbwarfare:projectile",
       "RPM": 650,
       "Damage": 9.5,

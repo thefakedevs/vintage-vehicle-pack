@@ -102,5 +102,5 @@
   "Type": "Helicopter",
   "MainWeaponHudType": "@Helicopter",
   "HudType": "@Helicopter",
-  "TerrainCompat": [[-1.2, 0, 1.8], [1.2, 0, 1.8], [0, 0.5, -8]]
+  "TerrainCompat": [[-1.2, 0, 1.8], [1.2, 0, 1.8], [0, 0, -8]]
 }
