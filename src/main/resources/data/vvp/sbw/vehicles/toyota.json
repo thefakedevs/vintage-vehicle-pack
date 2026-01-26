@@ -20,7 +20,7 @@
   "ThirdPersonCameraPos": [0, 1.5, 4], "HasDecoy": false, "UpStep": 1, "RotateOffsetHeight": 1, "Mass": 2.5,
   "DamageModifiers": ["All * 0.3", "minecraft:explosion * 8", "superbwarfare:custom_explosion * 3", "superbwarfare:projectile_hit * 1.8", "#superbwarfare:projectile * 0.4", "superbwarfare:vehicle_strike * 8", "All - 5"],
   "VehicleContainerType": "Small", "DestroyInfo": {"ParticleType": "Huge", "ExplosionDamage": 60, "ExplosionRadius": 4},
-  "VehicleIcon": "superbwarfare:textures/vehicle_icon/truck_icon.png", "ContainerIcon": "superbwarfare:textures/gui/vehicle/type/land.png", "Type": "Truck",
+  "VehicleIcon": "superbwarfare:textures/vehicle_icon/truck_icon.png", "ContainerIcon": "superbwarfare:textures/gui/vehicle/type/land.png", "Type": "Car",
   "CollisionLevel": {"Level": 1, "PowerLimits": [[0.1, 0.05, false]]},
   "EngineSound": "superbwarfare:truck_engine", "HudType": "@Land", "MainWeaponHudType": "@Land", "TerrainCompat": [[0.8, 0, 1], [-0.8, 0, 1], [0.8, 0, -1], [-0.8, 0, -1]], "InertiaRotateRate": 2.0
 }

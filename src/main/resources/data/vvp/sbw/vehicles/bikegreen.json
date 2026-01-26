@@ -39,5 +39,6 @@
     "ParticleType": "Small",
     "ExplosionDamage": 30,
     "ExplosionRadius": 3
-  }
+  },
+  "Type": "Car"
 }
