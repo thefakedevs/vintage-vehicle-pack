@@ -11,10 +11,22 @@ buildscript {
 
 plugins {
     id 'eclipse'
+    id 'maven-publish'
     id 'idea'
     id 'net.minecraftforge.gradle' version '[6.0.16,6.2)'
     id 'org.spongepowered.mixin' version '0.7.+'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
+}
+
+def localProperties = new Properties()
+def localPropertiesFile = file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withInputStream { stream ->
+        localProperties.load(stream)
+    }
+    localProperties.each { key, value ->
+        project.ext[key.toString()] = value.toString()
+    }
 }
 
 //apply plugin: 'org.spongepowered.mixin'
@@ -255,4 +267,60 @@ def isWorkspaceClean() {
         standardOutput = stdout
     }
     return stdout.toString().trim().isEmpty()
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            minimalCurseLike(MavenPublication) {
+                artifact(tasks.named("jar", Jar.class)) {
+                    builtBy(tasks.named("reobfJar"))
+
+                    extension = "jar"
+                    classifier = null
+                }
+                def sourcesJarTask = tasks.findByName("sourcesJar")
+                if (sourcesJarTask != null) {
+                    artifact(sourcesJarTask)
+                }
+
+                groupId = project.group.toString()
+                artifactId = base.archivesName.get()
+                version = project.version.toString()
+
+                pom.withXml {
+                    def root = asNode()
+                    root.children().clear()
+
+                    root.appendNode("modelVersion", "4.0.0")
+                    root.appendNode("groupId", groupId)
+                    root.appendNode("artifactId", artifactId)
+                    root.appendNode("version", version)
+                }
+            }
+        }
+
+        repositories {
+            maven {
+                name = "reposilite"
+                url = uri("https://reposilite.artembay.ru/releases")
+
+                credentials {
+                    def user = project.ext.get("reposilite.user")
+                    def token = project.ext.get("reposilite.token")
+
+                    if (user == null || token == null) {
+                        throw new RuntimeException("reposilite.user or reposilite.token is not defined in local.properties")
+                    }
+
+                    username = user
+                    password = token
+                }
+
+                authentication {
+                    basic(BasicAuthentication)
+                }
+            }
+        }
+    }
 }
