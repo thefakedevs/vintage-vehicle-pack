@@ -2,7 +2,7 @@ package tech.vvp.vvp.entity.vehicle;
 
 import com.atsuishio.superbwarfare.entity.vehicle.base.GeoVehicleEntity;
 import com.atsuishio.superbwarfare.init.ModDamageTypes;
-import tech.vvp.vvp.init.ModItems;
+import com.atsuishio.superbwarfare.init.ModItems;
 import com.atsuishio.superbwarfare.init.ModSounds;
 import com.atsuishio.superbwarfare.tools.FormatTool;
 import com.atsuishio.superbwarfare.tools.ParticleTool;
@@ -173,9 +173,9 @@ public class KornetEntity extends GeoVehicleEntity {
             var y = this.getY();
             var z = this.getZ();
             level.explode(null, x, y, z, 0, Level.ExplosionInteraction.NONE);
-            ItemEntity kornet = new ItemEntity(level, x, (y + 1), z, new ItemStack(ModItems.KORNET_ITEM.get()));
-            kornet.setPickUpDelay(10);
-            level.addFreshEntity(kornet);
+            ItemEntity mortar = new ItemEntity(level, x, (y + 1), z, new ItemStack(ModItems.MORTAR_BARREL.get()));
+            mortar.setPickUpDelay(10);
+            level.addFreshEntity(mortar);
         }
         super.destroy();
     }
