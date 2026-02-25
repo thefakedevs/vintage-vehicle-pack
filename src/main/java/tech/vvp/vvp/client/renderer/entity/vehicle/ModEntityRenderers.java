@@ -48,6 +48,7 @@ public class ModEntityRenderers {
         event.registerEntityRenderer(ModEntities.BMP_2_BAKHCHA.get(), Bmp2BakhcaRenderer::new);
 
         event.registerEntityRenderer(ModEntities.PANTSIR_MISSILE.get(), PantsirMissileRenderer::new);
+        event.registerEntityRenderer(ModEntities.BK16.get(), Bk16Renderer::new);
 
         // Commented out - these entity types and renderers don't exist
         // event.registerEntityRenderer(ModEntities.SPIKE_MISSLE.get(), SpikeATGMRenderer::new);
