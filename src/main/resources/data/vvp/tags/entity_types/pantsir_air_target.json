@@ -1,9 +1,37 @@
 {
   "replace": false,
   "values": [
-    "uncomplicatedfpv:fpv_drone",
-    "uncomplicatedfpv:shahed136",
-    "uncomplicatedfpv:mavic_drone_no_drop",
-    "uncomplicatedfpv:mavic_drone_with_drop"
+    {
+      "id": "wrbdrones:fpv_drone",
+      "required": false
+    },
+    {
+      "id": "wrbdrones:shahed136",
+      "required": false
+    },
+    {
+      "id": "wrbdrones:mavic_drone_no_drop",
+      "required": false
+    },
+    {
+      "id": "wrbdrones:mavic_drone_with_drop",
+      "required": false
+    },
+    {
+      "id": "uncomplicatedfpv:fpv_drone",
+      "required": false
+    },
+    {
+      "id": "uncomplicatedfpv:shahed136",
+      "required": false
+    },
+    {
+      "id": "uncomplicatedfpv:mavic_drone_no_drop",
+      "required": false
+    },
+    {
+      "id": "uncomplicatedfpv:mavic_drone_with_drop",
+      "required": false
+    }
   ]
 }

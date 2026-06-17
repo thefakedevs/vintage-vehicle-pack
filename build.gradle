@@ -303,7 +303,7 @@ afterEvaluate {
         repositories {
             maven {
                 name = "reposilite"
-                url = uri("https://reposilite.artembay.ru/releases")
+                url = uri("https://repo.svocraft.xyz/releases")
 
                 credentials {
                     def user = project.ext.get("reposilite.user")
