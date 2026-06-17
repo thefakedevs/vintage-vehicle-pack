@@ -1,9 +1,9 @@
 {
   "replace": false,
   "values": [
-    "wrbdrones:fpv_drone",
-    "wrbdrones:shahed136",
-    "wrbdrones:mavic_drone_no_drop",
-    "wrbdrones:mavic_drone_with_drop"
+    "uncomplicatedfpv:fpv_drone",
+    "uncomplicatedfpv:shahed136",
+    "uncomplicatedfpv:mavic_drone_no_drop",
+    "uncomplicatedfpv:mavic_drone_with_drop"
   ]
 }
