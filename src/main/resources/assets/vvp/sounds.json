@@ -109,6 +109,38 @@
       "vvp:bushmaster_veryfar"
     ]
   },
+  "pantsir_cannon_1p": {
+    "sounds": [
+      {
+        "name": "vvp:bushmaster_1p",
+        "volume": 0.4
+      }
+    ]
+  },
+  "pantsir_cannon_3p": {
+    "sounds": [
+      {
+        "name": "vvp:bushmaster_3p",
+        "volume": 0.4
+      }
+    ]
+  },
+  "pantsir_cannon_far": {
+    "sounds": [
+      {
+        "name": "vvp:bushmaster_far",
+        "volume": 0.35
+      }
+    ]
+  },
+  "pantsir_cannon_veryfar": {
+    "sounds": [
+      {
+        "name": "vvp:bushmaster_veryfar",
+        "volume": 0.3
+      }
+    ]
+  },
   "m1128_1p": {
     "sounds": [
       "vvp:m1128_1p"
