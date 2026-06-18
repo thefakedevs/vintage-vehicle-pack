@@ -45,7 +45,7 @@
     {
       "IsEnclosed": true,
       "Transform": "Vehicle",
-      "Position": [0.78625, 0.8, 0.45625],
+      "Position": [0.78625, 0.7, 0.45625],
       "MinPitch": -60,
       "MaxPitch": 60,
       "MinYaw": -95,
@@ -62,7 +62,7 @@
         "Direction": "Barrel"
       },
       "Transform": "Vehicle",
-      "Position": [-0.59, 0.8, -0.98793125],
+      "Position": [-0.59, 0.7, -0.98793125],
       "MinPitch": -60,
       "MaxPitch": 60,
       "Weapons": ["PassengerMachineGun"]
@@ -70,58 +70,47 @@
     {
       "IsEnclosed": true,
       "Transform": "Vehicle",
-      "Position": [-0.78625, 0.8, 0.45625],
+      "Position": [-0.78625, 0.7, 0.45625],
       "MinPitch": -10,
       "MaxPitch": 60,
       "MinYaw": -95,
       "MaxYaw": 95
     },
-
-
-
-
     {
       "IsEnclosed": true,
       "Orientation": 90.0,
       "Transform": "Vehicle",
-      "Position": [0.89831875, 0.7, -0.80043125],
+      "Position": [0.89831875, 0.6, -0.80043125],
       "MinPitch": -60,
       "MaxPitch": 60,
       "MinYaw": -95,
       "MaxYaw": 95
     },
-
-
-
     {
       "IsEnclosed": true,
       "Orientation": 90.0,
       "Transform": "Vehicle",
-      "Position": [0.58581875, 0.7, -1.67543125],
+      "Position": [0.58581875, 0.6, -1.67543125],
       "MinPitch": -60,
       "MaxPitch": 60,
       "MinYaw": -95,
       "MaxYaw": 95
     },
-
     {
       "IsEnclosed": true,
       "Orientation": 90.0,
       "Transform": "Vehicle",
-      "Position": [0.58581875, 0.7, -2.48793125],
+      "Position": [0.58581875, 0.6, -2.48793125],
       "MinPitch": -60,
       "MaxPitch": 60,
       "MinYaw": -95,
       "MaxYaw": 95
     },
-
-
-
     {
       "IsEnclosed": true,
       "Orientation": -90.0,
       "Transform": "Vehicle",
-      "Position": [-0.58581875, 0.7, -1.67543125],
+      "Position": [-0.58581875, 0.6, -1.67543125],
       "MinPitch": -60,
       "MaxPitch": 60,
       "MinYaw": -95,
@@ -132,13 +121,12 @@
       "IsEnclosed": true,
       "Orientation": -90.0,
       "Transform": "Vehicle",
-      "Position": [-0.58581875, 0.7, -2.48793125],
+      "Position": [-0.58581875, 0.6, -2.48793125],
       "MinPitch": -60,
       "MaxPitch": 60,
       "MinYaw": -95,
       "MaxYaw": 95
     }
-
   ],
   "Weapons": {
     "PassengerMachineGun": {

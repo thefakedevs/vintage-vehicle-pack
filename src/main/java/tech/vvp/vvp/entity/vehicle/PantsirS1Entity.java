@@ -26,6 +26,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.PacketDistributor;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 import tech.vvp.vvp.network.VVPNetwork;
 import tech.vvp.vvp.network.message.PantsirRadarSyncMessage;
@@ -298,9 +299,7 @@ public class PantsirS1Entity extends CamoVehicleBase {
         if (distance > RADAR_RANGE) return false;
         
         // Теги
-        EntityType<?> type = entity.getType();
-        if (type.is(tech.vvp.vvp.init.ModTags.EntityTypes.PANTSIR_AIR_TARGET) ||
-            type.is(tech.vvp.vvp.init.ModTags.EntityTypes.PANTSIR_MISSILE_TARGET)) {
+        if (isPantsirAirTarget(entity) || isPantsirMissileTarget(entity)) {
             return true;
         }
         
@@ -319,7 +318,30 @@ public class PantsirS1Entity extends CamoVehicleBase {
         
         // Баллистика (последняя проверка)
         String className = entity.getClass().getSimpleName();
-        return className.contains("Missile") || className.contains("Rocket") || className.contains("Bomb");
+        return className.contains("Missile") || className.contains("Rocket") || className.contains("Bomb") || className.contains("Drone");
+    }
+
+    private boolean isPantsirAirTarget(@Nullable Entity entity) {
+        if (entity == null) return false;
+
+        EntityType<?> type = entity.getType();
+        if (type.is(tech.vvp.vvp.init.ModTags.EntityTypes.PANTSIR_AIR_TARGET)) {
+            return true;
+        }
+
+        ResourceLocation id = ForgeRegistries.ENTITY_TYPES.getKey(type);
+        if (id == null) return false;
+
+        String namespace = id.getNamespace();
+        String path = id.getPath();
+        return namespace.equals("wrbdrones")
+            || namespace.equals("uncomplicatedfpv")
+            || path.contains("drone")
+            || path.contains("shahed");
+    }
+
+    private boolean isPantsirMissileTarget(@Nullable Entity entity) {
+        return entity != null && entity.getType().is(tech.vvp.vvp.init.ModTags.EntityTypes.PANTSIR_MISSILE_TARGET);
     }
     
     /**
@@ -616,8 +638,7 @@ public class PantsirS1Entity extends CamoVehicleBase {
         double timeToTarget = distance / projectileSpeed;
         
         // Проверяем - это цель из нашего тега (дроны, шахеды)?
-        boolean isTaggedTarget = target != null && 
-            target.getType().is(tech.vvp.vvp.init.ModTags.EntityTypes.PANTSIR_AIR_TARGET);
+        boolean isTaggedTarget = isPantsirAirTarget(target);
         
         // Для целей из тега (дроны, шахеды) - простой расчёт
         if (isTaggedTarget) {
@@ -870,6 +891,9 @@ public class PantsirS1Entity extends CamoVehicleBase {
         String className = entity.getClass().getSimpleName();
         if (className.contains("Missile") || className.contains("Rocket") || className.contains("Bomb")) {
             return PantsirRadarSyncMessage.TARGET_TYPE_MISSILE;
+        }
+        if (isPantsirAirTarget(entity)) {
+            return PantsirRadarSyncMessage.TARGET_TYPE_AIRPLANE;
         }
         // Техника
         if (entity instanceof VehicleEntity vehicle) {

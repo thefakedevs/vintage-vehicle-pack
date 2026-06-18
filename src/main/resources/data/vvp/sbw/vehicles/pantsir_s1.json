@@ -128,10 +128,10 @@
       "CrosshairColor": "0x66FF00",
       "Name": "weapon.vvp.2a42_30mm",
       "SoundInfo": {
-        "Fire1P": "vvp:bushmaster_1p",
-        "Fire3P": "vvp:bushmaster_3p",
-        "Fire3PFar": "vvp:bushmaster_far",
-        "Fire3PVeryFar": "vvp:bushmaster_veryfar",
+        "Fire1P": "vvp:pantsir_cannon_1p",
+        "Fire3P": "vvp:pantsir_cannon_3p",
+        "Fire3PFar": "vvp:pantsir_cannon_far",
+        "Fire3PVeryFar": "vvp:pantsir_cannon_veryfar",
         "Change": "vvp:into_atgm"
       },
       "SoundRadius": 24,

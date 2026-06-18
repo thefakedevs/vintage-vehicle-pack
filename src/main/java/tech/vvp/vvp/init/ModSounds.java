@@ -63,6 +63,10 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> BUSHMASTER_3P = register("bushmaster_3p");
     public static final RegistryObject<SoundEvent> BUSHMASTER_FAR = register("bushmaster_far");
     public static final RegistryObject<SoundEvent> BUSHMASTER_VERYFAR = register("bushmaster_veryfar");
+    public static final RegistryObject<SoundEvent> PANTSIR_CANNON_1P = register("pantsir_cannon_1p");
+    public static final RegistryObject<SoundEvent> PANTSIR_CANNON_3P = register("pantsir_cannon_3p");
+    public static final RegistryObject<SoundEvent> PANTSIR_CANNON_FAR = register("pantsir_cannon_far");
+    public static final RegistryObject<SoundEvent> PANTSIR_CANNON_VERYFAR = register("pantsir_cannon_veryfar");
 
     // Звуки оружия M1128
     public static final RegistryObject<SoundEvent> M1128_1P = register("m1128_1p");
