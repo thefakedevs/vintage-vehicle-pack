@@ -318,26 +318,43 @@ public class PantsirS1Entity extends CamoVehicleBase {
         
         // Баллистика (последняя проверка)
         String className = entity.getClass().getSimpleName();
-        return className.contains("Missile") || className.contains("Rocket") || className.contains("Bomb") || className.contains("Drone");
+        return className.contains("Missile") || className.contains("Rocket") || className.contains("Bomb");
     }
 
     private boolean isPantsirAirTarget(@Nullable Entity entity) {
         if (entity == null) return false;
 
         EntityType<?> type = entity.getType();
+        ResourceLocation id = ForgeRegistries.ENTITY_TYPES.getKey(type);
+        if (isExcludedPantsirAirTarget(entity, id)) {
+            return false;
+        }
+
         if (type.is(tech.vvp.vvp.init.ModTags.EntityTypes.PANTSIR_AIR_TARGET)) {
             return true;
         }
 
-        ResourceLocation id = ForgeRegistries.ENTITY_TYPES.getKey(type);
         if (id == null) return false;
 
-        String namespace = id.getNamespace();
         String path = id.getPath();
-        return namespace.equals("wrbdrones")
-            || namespace.equals("uncomplicatedfpv")
-            || path.contains("drone")
+        return path.equals("fpv_drone")
+            || path.equals("shahed136")
+            || path.equals("mavic_drone_no_drop")
+            || path.equals("mavic_drone_with_drop")
             || path.contains("shahed");
+    }
+
+    private boolean isExcludedPantsirAirTarget(Entity entity, @Nullable ResourceLocation id) {
+        String path = id != null ? id.getPath().toLowerCase(java.util.Locale.ROOT) : "";
+        String className = entity.getClass().getSimpleName().toLowerCase(java.util.Locale.ROOT);
+
+        return path.contains("reb")
+            || path.contains("ew")
+            || path.contains("jam")
+            || path.contains("radio_electronic")
+            || className.contains("reb")
+            || className.contains("ew")
+            || className.contains("jam");
     }
 
     private boolean isPantsirMissileTarget(@Nullable Entity entity) {
