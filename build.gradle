@@ -176,7 +176,7 @@ repositories {
 
     maven {
         name = "svocraftRepository"
-        url = uri("https://reposilite.artembay.ru/releases")
+        url = uri("https://repo.svocraft.xyz/releases")
     }
 }
 
