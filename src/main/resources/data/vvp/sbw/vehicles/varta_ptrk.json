@@ -164,6 +164,7 @@
       "AmmoType": "superbwarfare:medium_anti_ground_missile",
       "Projectile": "superbwarfare:wire_guide_missile",
       "Magazine": 4,
+      "SemiFireDelay": 60,
       "EmptyReloadTime": 220,
       "Damage": 300,
       "ExplosionDamage": 80,

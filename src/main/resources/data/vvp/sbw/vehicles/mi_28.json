@@ -173,28 +173,10 @@
       "SoundRadius": 8
     },
     "SeekMissile": {
-      "AmmoType": [
-        {
-          "Ammo": "superbwarfare:large_anti_ground_missile",
-          "ShouldUnload": false
-        },
-        {
-          "Ammo": "superbwarfare:large_anti_ground_missile",
-          "ShouldUnload": false,
-          "Override": {
-            "Name": "weapon.vvp.kh39_missile",
-            "SeekWeaponInfo": {
-              "SeekDirection": "Barrel",
-              "SeekRange": 384,
-              "SeekAngle": 20,
-              "SeekTime": 20,
-              "MaxTargetHeight": 32,
-              "MinTargetSize": 0.9,
-              "OnlyLockBlock": true
-            }
-          }
-        }
-      ],
+      "AmmoType": {
+        "Ammo": "superbwarfare:large_anti_ground_missile",
+        "ShouldUnload": false
+      },
       "Icon": "superbwarfare:textures/screens/vehicle_weapon/kh_39.png",
       "DefaultZoom": 3,
       "DefaultFireMode": "Semi",

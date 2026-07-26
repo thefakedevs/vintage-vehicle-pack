@@ -135,22 +135,7 @@
         "Change": "superbwarfare:into_missile"
       },
       "SoundRadius": 24,
-      "AmmoType": [
-        "vvp:item_30mm",
-        {
-          "Ammo": "vvp:item_30mm",
-          "Override": {
-            "Icon": "vvp:textures/screens/vehicle_weapon/30_mm_he.png",
-            "IsArmorPiercingProjectile": false,
-            "IsHighExplosiveProjectile": true,
-            "Velocity": 25,
-            "Damage": 17,
-            "ExplosionDamage": 75,
-            "ExplosionRadius": 6,
-            "Name": "weapon.vvp.25mm_cannon_he"
-          }
-        }
-      ],
+      "AmmoType": "vvp:item_30mm",
       "Icon": "vvp:textures/screens/vehicle_weapon/30_mm_ap.png",
       "ShootPos": {
         "Transform": "Barrel",
